@@ -94,21 +94,30 @@ class GearmanExecuteTest extends WebTestCase
             $executedFlag = true;
         });
 
-        // Create the service under test
-        $service = new GearmanExecute($wrapper, array());
-        $service->setEventDispatcher($dispatcher);
-
         // We need a job object, this part could be improved
         $object = new \Mmoreram\GearmanBundle\Tests\Service\Mocks\SingleCleanFile();
+
+        // Create the service under test
+        $service = new GearmanExecute($wrapper, array());
+        $reflection = new \ReflectionClass($service);
+        $reflectionProperty = $reflection->getProperty('workersBucket');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue(
+            $service,
+            array(
+                false => array(
+                    'job_object_instance' => $object,
+                    'job_method' => 'myMethod',
+                    'jobs' => array(),
+                )
+            )
+        );
+        $service->setEventDispatcher($dispatcher);
 
         // Finalize worker mock by making it call our job object
         // This is normally handled by Gearman, but for test purpose we must simulate it
         $worker->method('work')->will($this->returnCallback(function() use ($service, $object){
-            $service->handleJob(new \GearmanJob(), array(
-                'job_object_instance' => $object,
-                'job_method' => 'myMethod',
-                'jobs' => array()
-            ));
+            $service->handleJob(new \GearmanJob());
             return true;
         }));
 

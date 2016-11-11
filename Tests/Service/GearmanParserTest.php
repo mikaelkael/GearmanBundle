@@ -161,10 +161,6 @@ class GearmanParserTest extends WebTestCase
             ))
             ->getMock();
 
-        $finder
-            ->expects($this->never())
-            ->method('getPath');
-
         $workerCollection = $this
             ->gearmanParser
             ->parseNamespaceMap($finder, $reader, $paths, $excludedPaths);
