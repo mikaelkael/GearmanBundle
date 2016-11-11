@@ -61,12 +61,12 @@ class GearmanExecuteTest extends WebTestCase
                 'minimumExecutionTime' => null,
                 'jobs' => array(
                     0 => array(
-                        'callableName'             => "test",
-                        'methodName'               => "test",
-                        'realCallableName'         => "test",
+                        'callableName'             => "callableNameTest",
+                        'methodName'               => "myMethod",
+                        'realCallableName'         => "realCallableNameTest",
                         'jobPrefix'                => NULL,
-                        'realCallableNameNoPrefix' => "test",
-                        'description'              => "test",
+                        'realCallableNameNoPrefix' => "realCallableNameTest",
+                        'description'              => "test description",
                         'iterations'               => 1,
                         'servers'                  => array(),
                         'defaultMethod'            => "doBackground",
@@ -99,30 +99,22 @@ class GearmanExecuteTest extends WebTestCase
 
         // Create the service under test
         $service = new GearmanExecute($wrapper, array());
-        $reflection = new \ReflectionClass($service);
-        $reflectionProperty = $reflection->getProperty('workersBucket');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue(
-            $service,
-            array(
-                false => array(
-                    'job_object_instance' => $object,
-                    'job_method' => 'myMethod',
-                    'jobs' => array(),
-                )
-            )
-        );
         $service->setEventDispatcher($dispatcher);
+
+        $job = $this->getMockBuilder('\GearmanJob')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $job->method('functionName')->will($this->returnValue('realCallableNameTest'));
 
         // Finalize worker mock by making it call our job object
         // This is normally handled by Gearman, but for test purpose we must simulate it
-        $worker->method('work')->will($this->returnCallback(function() use ($service, $object){
-            $service->handleJob(new \GearmanJob());
+        $worker->method('work')->will($this->returnCallback(function() use ($service, $job){
+            $service->handleJob($job);
             return true;
         }));
 
         // Execute a job :)
-        $service->executeJob('test', array(), $worker);
+        $service->executeJob('realCallableNameTest', array(), $worker);
 
         // Do we have the events ?
         $this->assertTrue($startingFlag);
