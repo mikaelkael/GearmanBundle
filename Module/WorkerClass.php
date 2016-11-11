@@ -291,7 +291,7 @@ class WorkerClass
      * @param ReflectionClass $reflectionClass Reflexion class
      * @param Reader          $reader          ReaderAnnotation class
      *
-     * @return WorkerClass self Object
+     * @return JobCollection self Object
      */
     private function createJobCollection(ReflectionClass $reflectionClass, Reader $reader)
     {
