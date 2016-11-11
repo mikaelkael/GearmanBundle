@@ -38,7 +38,7 @@ class GearmanWorkerListCommand extends AbstractGearmanCommand
      *
      * @param GearmanClient $gearmanClient Gearman client
      *
-     * @return GearmanJobDescribeCommand self Object
+     * @return GearmanWorkerListCommand self Object
      */
     public function setGearmanClient(GearmanClient $gearmanClient)
     {

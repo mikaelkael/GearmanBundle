@@ -114,7 +114,7 @@ class JobStatus
      * 1 is finished
      * Between 0 and 1 is in process. Value is a float
      *
-     * @return float Percent completed
+     * @return integer Percent completed
      */
     public function getCompletionPercent()
     {
