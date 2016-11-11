@@ -191,8 +191,7 @@ class GearmanJobExecuteCommand extends AbstractGearmanCommand
                 ->gearmanDescriber
                 ->describeJob(
                     $output,
-                    $jobStructure,
-                    true
+                    $jobStructure
                 );
         }
 

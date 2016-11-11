@@ -38,7 +38,7 @@ class GearmanCacheClearCommand extends AbstractGearmanCommand
      *
      * @param GearmanCacheWrapper $gearmanCacheWrapper GearmanCacheWrapper
      *
-     * @return GearmanCacheWarmupCommand self Object
+     * @return GearmanCacheClearCommand self Object
      */
     public function setGearmanCacheWrapper(GearmanCacheWrapper $gearmanCacheWrapper)
     {
@@ -66,7 +66,7 @@ class GearmanCacheClearCommand extends AbstractGearmanCommand
      * @param InputInterface  $input  An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
      *
-     * @return integer 0 if everything went fine, or an error code
+     * @return null|int null or 0 if everything went fine, or an error code
      *
      * @throws \LogicException When this abstract class is not implemented
      */
