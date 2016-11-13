@@ -72,4 +72,9 @@ class Job extends Annotation
      * Number of seconds the execution must run before being allowed to terminate
      */
     public $minimumExecutionTime;
+
+    /**
+     * @var string
+     */
+    public $realCallableName;
 }

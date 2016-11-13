@@ -149,6 +149,47 @@ class JobClassTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test a forced real callable name set by annotation
+     */
+    public function testRealCallableNameByAnnotation()
+    {
+        $this->jobAnnotation->realCallableName = 'myRealCallableName';
+
+        $jobClass = new JobClass(
+            $this->jobAnnotation,
+            $this->reflectionMethod,
+            $this->callableNameClass,
+            $this->servers,
+            $this->defaultSettings
+        );
+
+        $this->assertEquals($jobClass->toArray()['realCallableName'], 'myRealCallableName');
+        $this->assertEquals($jobClass->toArray()['realCallableNameNoPrefix'], 'myRealCallableName');
+    }
+
+    /**
+     * Test a forced real callable name set by annotation
+     */
+    public function testRealCallableNameByAnnotationWithPrefix()
+    {
+        $this->jobAnnotation->realCallableName = 'myRealCallableName';
+
+        $settings = $this->defaultSettings;
+        $settings['jobPrefix'] = 'test';
+
+        $jobClass = new JobClass(
+            $this->jobAnnotation,
+            $this->reflectionMethod,
+            $this->callableNameClass,
+            $this->servers,
+            $settings
+        );
+
+        $this->assertEquals($jobClass->toArray()['realCallableName'], 'testmyRealCallableName');
+        $this->assertEquals($jobClass->toArray()['realCallableNameNoPrefix'], 'myRealCallableName');
+    }
+
+    /**
      * Testing scenario with any Job annotation filled
      *
      * All settings set as default should be considered to configure Job

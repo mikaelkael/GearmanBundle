@@ -144,7 +144,9 @@ class JobClass implements ContainerAwareInterface
             : $jobAnnotation->name;
 
         $this->methodName = $reflectionMethod->getName();
-        $this->realCallableNameNoPrefix = str_replace('\\', '', $callableNameClass . '~' . $this->callableName);
+        $this->realCallableNameNoPrefix = is_null($jobAnnotation->realCallableName)
+            ? str_replace('\\', '', $callableNameClass . '~' . $this->callableName)
+            : $jobAnnotation->realCallableName;
 
         $this->jobPrefix = isset($defaultSettings['jobPrefix'])
             ? $defaultSettings['jobPrefix']
