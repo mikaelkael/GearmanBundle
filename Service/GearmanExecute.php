@@ -16,7 +16,7 @@ namespace Mkk\GearmanBundle\Service;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Mkk\GearmanBundle\Command\Util\GearmanOutputAwareInterface;
@@ -29,14 +29,9 @@ use Mkk\GearmanBundle\Exceptions\ServerConnectionException;
 /**
  * Gearman execute methods. All Worker methods
  */
-class GearmanExecute extends AbstractGearmanService
+class GearmanExecute extends AbstractGearmanService implements ContainerAwareInterface
 {
-    /**
-     * @var ContainerInterface
-     *
-     * Container instance
-     */
-    private $container;
+    use ContainerAwareTrait;
 
     /**
      * @var EventDispatcherInterface
@@ -112,20 +107,6 @@ class GearmanExecute extends AbstractGearmanService
     public function handleSystemSignal($signo)
     {
         $this->stopWorkSignalReceived = true;
-    }
-
-    /**
-     * Set container
-     *
-     * @param ContainerInterface $container Container
-     *
-     * @return GearmanExecute self Object
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-
-        return $this;
     }
 
     /**
