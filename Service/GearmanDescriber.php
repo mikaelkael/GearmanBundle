@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,13 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Service;
+namespace Mkk\GearmanBundle\Service;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Implementation of GearmanDescriber
- *
- * @since 2.3.1
  */
 class GearmanDescriber
 {

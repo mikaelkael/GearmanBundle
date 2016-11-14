@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Dispatcher;
+namespace Mkk\GearmanBundle\Tests\Dispatcher;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -29,7 +29,7 @@ class GearmanCallbacksDispatcherTest extends WebTestCase
         static::$kernel->boot();
 
         $this->assertInstanceOf(
-            '\Mmoreram\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher',
+            '\Mkk\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher',
             static::$kernel
                 ->getContainer()
                 ->get('gearman.dispatcher.callbacks')

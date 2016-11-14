@@ -8,33 +8,33 @@ parameters:
     #
     # Generators
     #
-    gearman.unique_job_identifier.class: Mmoreram\GearmanBundle\Generator\UniqueJobIdentifierGenerator
+    gearman.unique_job_identifier.class: Mkk\GearmanBundle\Generator\UniqueJobIdentifierGenerator
 
     #
     # Dispatchers
     #
-    gearman.dispatcher.callbacks.class: Mmoreram\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher
+    gearman.dispatcher.callbacks.class: Mkk\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher
 
     #
     # Services
     #
-    gearman.client.class:           Mmoreram\GearmanBundle\Service\GearmanClient
-    gearman.callbacks.class:        Mmoreram\GearmanBundle\Service\GearmanCallbacks
-    gearman.execute.class:          Mmoreram\GearmanBundle\Service\GearmanExecute
-    gearman.describer.class:        Mmoreram\GearmanBundle\Service\GearmanDescriber
-    gearman.parser.class:  Mmoreram\GearmanBundle\Service\GearmanParser
-    gearman.cache.wrapper.class: Mmoreram\GearmanBundle\Service\GearmanCacheWrapper
+    gearman.client.class:        Mkk\GearmanBundle\Service\GearmanClient
+    gearman.callbacks.class:     Mkk\GearmanBundle\Service\GearmanCallbacks
+    gearman.execute.class:       Mkk\GearmanBundle\Service\GearmanExecute
+    gearman.describer.class:     Mkk\GearmanBundle\Service\GearmanDescriber
+    gearman.parser.class:        Mkk\GearmanBundle\Service\GearmanParser
+    gearman.cache.wrapper.class: Mkk\GearmanBundle\Service\GearmanCacheWrapper
 
     #
     # Commands
     #
-    gearman.command.cache_clear.class: Mmoreram\GearmanBundle\Command\GearmanCacheClearCommand
-    gearman.command.cache_warmup.class: Mmoreram\GearmanBundle\Command\GearmanCacheWarmupCommand
-    gearman.command.job_describe.class: Mmoreram\GearmanBundle\Command\GearmanJobDescribeCommand
-    gearman.command.job_execute.class: Mmoreram\GearmanBundle\Command\GearmanJobExecuteCommand
-    gearman.command.worker_describe.class: Mmoreram\GearmanBundle\Command\GearmanWorkerDescribeCommand
-    gearman.command.worker_execute.class: Mmoreram\GearmanBundle\Command\GearmanWorkerExecuteCommand
-    gearman.command.worker_list.class: Mmoreram\GearmanBundle\Command\GearmanWorkerListCommand
+    gearman.command.cache_clear.class:     Mkk\GearmanBundle\Command\GearmanCacheClearCommand
+    gearman.command.cache_warmup.class:    Mkk\GearmanBundle\Command\GearmanCacheWarmupCommand
+    gearman.command.job_describe.class:    Mkk\GearmanBundle\Command\GearmanJobDescribeCommand
+    gearman.command.job_execute.class:     Mkk\GearmanBundle\Command\GearmanJobExecuteCommand
+    gearman.command.worker_describe.class: Mkk\GearmanBundle\Command\GearmanWorkerDescribeCommand
+    gearman.command.worker_execute.class:  Mkk\GearmanBundle\Command\GearmanWorkerExecuteCommand
+    gearman.command.worker_list.class:     Mkk\GearmanBundle\Command\GearmanWorkerListCommand
 
     #
     # Externals

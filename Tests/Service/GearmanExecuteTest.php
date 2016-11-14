@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,11 +11,11 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Service;
+namespace Mkk\GearmanBundle\Tests\Service;
 
-use Mmoreram\GearmanBundle\Service\GearmanExecute;
+use Mkk\GearmanBundle\Service\GearmanExecute;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Mmoreram\GearmanBundle\GearmanEvents;
+use Mkk\GearmanBundle\GearmanEvents;
 
 /**
  * Tests GearmanExecute class
@@ -32,7 +32,7 @@ class GearmanExecuteTest extends WebTestCase
         static::$kernel->boot();
 
         $this->assertInstanceOf(
-            '\Mmoreram\GearmanBundle\Service\GearmanExecute',
+            '\Mkk\GearmanBundle\Service\GearmanExecute',
             static::$kernel
                 ->getContainer()
                 ->get('gearman.execute')
@@ -50,7 +50,7 @@ class GearmanExecuteTest extends WebTestCase
         // Wrapper mock
         $workers = array(
             0 => array(
-                'className'    => "Mmoreram\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+                'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
                 'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
                 'callableName' => null,
                 'description'  => "test",
@@ -76,7 +76,7 @@ class GearmanExecuteTest extends WebTestCase
                 )
             )
         );
-        $wrapper = $this->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanCacheWrapper')
+        $wrapper = $this->getMockBuilder('Mkk\GearmanBundle\Service\GearmanCacheWrapper')
             ->disableOriginalConstructor()
             ->getMock();
         $wrapper->method('getWorkers')
@@ -95,7 +95,7 @@ class GearmanExecuteTest extends WebTestCase
         });
 
         // We need a job object, this part could be improved
-        $object = new \Mmoreram\GearmanBundle\Tests\Service\Mocks\SingleCleanFile();
+        $object = new \Mkk\GearmanBundle\Tests\Service\Mocks\SingleCleanFile();
 
         // Create the service under test
         $service = new GearmanExecute($wrapper, array());

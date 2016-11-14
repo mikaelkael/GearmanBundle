@@ -6,7 +6,7 @@ settings.
 
 .. code-block:: bash
 
-    $ php app/console
+    $ php bin/console
 
 A subset of listed commands are Gearman specific.
 
@@ -29,14 +29,14 @@ settings are correct.
 
 .. code-block:: bash
 
-    $ php app/console gearman:worker:list
+    $ php bin/console gearman:worker:list
 
-    @Worker:  Mmoreramerino\TestBundle\Services\AcmeWorker
-    callablename:  MmoreramerinoTestBundleServicesMyAcmeWorker
+    @Worker:  Mkk\TestBundle\Services\AcmeWorker
+    callablename:  MkkTestBundleServicesMyAcmeWorker
     Jobs:
       - #1
           name: testA
-          callablename: MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething
+          callablename: MkkTestBundleServicesMyAcmeWorker~doSomething
 
 Listing worker settings
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,13 +48,13 @@ This command also provides you all needed information to work with Supervisord.
 
 .. code-block:: bash
 
-    $ php app/console gearman:worker:describe MmoreramerinoTestBundleServicesMyAcmeWorker
+    $ php bin/console gearman:worker:describe MkkTestBundleServicesMyAcmeWorker
 
-    @Worker\className : Mmoreramerino\TestBundle\Services\AcmeWorker
-    @Worker\fileName : /var/www/projects/myrepo/src/Mmoreramerino/TestBundle/Services/AcmeWorker.php
-    @Worker\nameSpace : Mmoreramerino\TestBundle\Services
-    @Worker\callableName: MmoreramerinoTestBundleServicesMyAcmeWorker
-    @Worker\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:worker:execute MmoreramerinoTestBundleServicesMyAcmeWorker --no-interaction
+    @Worker\className : Mkk\TestBundle\Services\AcmeWorker
+    @Worker\fileName : /var/www/projects/myrepo/src/Mkk/TestBundle/Services/AcmeWorker.php
+    @Worker\nameSpace : Mkk\TestBundle\Services
+    @Worker\callableName: MkkTestBundleServicesMyAcmeWorker
+    @Worker\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:worker:execute MkkTestBundleServicesMyAcmeWorker --no-interaction
     @worker\iterations : 3
     @Worker\#jobs : 1
 
@@ -77,13 +77,13 @@ This command also provides you all needed information to work with Supervisord.
 
 .. code-block:: bash
 
-    $ php app/console gearman:job:describe MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething
+    $ php bin/console gearman:job:describe MkkTestBundleServicesMyAcmeWorker~doSomething
 
-    @Worker\className : Mmoreramerino\TestBundle\Services\AcmeWorker
-    @Worker\fileName : /var/www/projects/myrepo/src/Mmoreramerino/TestBundle/Services/AcmeWorker.php
-    @Worker\nameSpace : Mmoreramerino\TestBundle\Services
-    @Worker\callableName: MmoreramerinoTestBundleServicesMyAcmeWorker
-    @Worker\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:worker:execute MmoreramerinoTestBundleServicesMyAcmeWorker --no-interaction
+    @Worker\className : Mkk\TestBundle\Services\AcmeWorker
+    @Worker\fileName : /var/www/projects/myrepo/src/Mkk/TestBundle/Services/AcmeWorker.php
+    @Worker\nameSpace : Mkk\TestBundle\Services
+    @Worker\callableName: MkkTestBundleServicesMyAcmeWorker
+    @Worker\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:worker:execute MkkTestBundleServicesMyAcmeWorker --no-interaction
     @worker\iterations : 3
     @Worker\#jobs : 1
 
@@ -97,8 +97,8 @@ This command also provides you all needed information to work with Supervisord.
         Acme Worker. Containing multiple available jobs
 
     @job\methodName : testA
-    @job\callableName : MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething
-    @job\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:job:execute MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething --no-interaction
+    @job\callableName : MkkTestBundleServicesMyAcmeWorker~doSomething
+    @job\supervisord : /usr/bin/php /var/www/projects/myrepo/app/console gearman:job:execute MkkTestBundleServicesMyAcmeWorker~doSomething --no-interaction
     @job\iterations : 10
     @job\defaultMethod : doBackground
     @job\servers :
@@ -119,8 +119,8 @@ itself.
 
 .. code-block:: bash
 
-    $ php app/console gearman:worker:execute MmoreramerinoTestBundleServicesMyAcmeWorker
-    $ php app/console gearman:job:execute MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething
+    $ php bin/console gearman:worker:execute MkkTestBundleServicesMyAcmeWorker
+    $ php bin/console gearman:job:execute MkkTestBundleServicesMyAcmeWorker~doSomething
 
 .. note:: By using callableName you can let Supervisord maintain alive a worker.
           When the job is executed as times as iterations is defined, will die,
@@ -141,7 +141,7 @@ For example:
 
 .. code-block:: bash
 
-    $ php app/console gearman:job:describe MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething --iterations=5 --minimum-execution-time=2 --timeout=20
+    $ php bin/console gearman:job:describe MkkTestBundleServicesMyAcmeWorker~doSomething --iterations=5 --minimum-execution-time=2 --timeout=20
 
 If these options are ommited, then the configuration defaults are used.
 
@@ -150,7 +150,7 @@ Request job status
 
 With the Handle given if requesting a background job you can request the status
 of the job. The Method returns a JobStatus object placed in
-`Mmoreram\GearmanBundle\Module\JobStatus'
+`Mkk\GearmanBundle\Module\JobStatus'
 
 .. code-block:: php
 

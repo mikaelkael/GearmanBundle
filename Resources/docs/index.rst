@@ -1,9 +1,9 @@
 GearmanBundle Documentation
 ===========================
 
-|SensioLabsInsight| |BuildStatus| |ScrutinizerQualityScore| |LatestStableVersion| |LatestUnstableVersion| |License| |TotalDownloads|
+|BuildStatus| |ScrutinizerQualityScore| |LatestStableVersion| |LatestUnstableVersion| |License| |TotalDownloads|
 
-GearmanBundle is a bundle for Symfony2 intended to provide an easy way to
+GearmanBundle is a bundle for Symfony2 or Symfony 3 intended to provide an easy way to
 support developers who need to use job queues. For example: mail queues, Solr
 generation queues or Database upload queues.
 
@@ -37,17 +37,15 @@ CookBook
     cookbook/job_status
 
 
-.. |SensioLabsInsight| image:: https://insight.sensiolabs.com/projects/cf3d97c6-e026-4489-8493-a3f4a1e75a68/mini.png
-   :target: https://insight.sensiolabs.com/projects/cf3d97c6-e026-4489-8493-a3f4a1e75a68
-.. |BuildStatus| image:: https://travis-ci.org/mmoreram/GearmanBundle.png?branch=master
-   :target: https://travis-ci.org/mmoreram/GearmanBundle
-.. |ScrutinizerQualityScore| image:: https://scrutinizer-ci.com/g/mmoreram/GearmanBundle/badges/quality-score.png?s=29f1ed342d3df54678614b58b0e243136aa24726
-   :target: https://scrutinizer-ci.com/g/mmoreram/GearmanBundle/
-.. |LatestStableVersion| image:: https://poser.pugx.org/mmoreram/gearman-bundle/v/stable.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
-.. |LatestUnstableVersion| image:: https://poser.pugx.org/mmoreram/gearman-bundle/v/unstable.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
-.. |License| image:: https://poser.pugx.org/mmoreram/gearman-bundle/license.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
-.. |TotalDownloads| image:: https://poser.pugx.org/mmoreram/gearman-bundle/downloads.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
+.. |BuildStatus| image:: https://travis-ci.org/mikaelkael/GearmanBundle.png?branch=master
+   :target: https://travis-ci.org/mikaelkael/GearmanBundle
+.. |ScrutinizerQualityScore| image:: https://scrutinizer-ci.com/g/mikaelkael/GearmanBundle/badges/coverage.png?b=master
+   :target: https://scrutinizer-ci.com/g/mikaelkael/GearmanBundle/?branch=master
+.. |LatestStableVersion| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/v/stable.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle
+.. |LatestUnstableVersion| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/v/unstable.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle
+.. |License| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/license.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle
+.. |TotalDownloads| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/downloads.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle

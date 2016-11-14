@@ -5,6 +5,12 @@ Contact: yuhu at mmoreram dot com
 Twitter: mmoreram
 Location: Barcelona, Catalunya, Catalunya.
 
+Maintainer: Mickael Perraud
+Site: https://github.com/mikaelkael/gearman-bundle
+Contact: mikaelkael dot fr at gmail dot com
+Twitter: mikaelkael
+Location: Donges, France.
+
 /* THANKS */
 http://gearman.org/
 http://github.com

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,17 +11,15 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Module;
+namespace Mkk\GearmanBundle\Tests\Module;
 
-use PHPUnit_Framework_TestCase;
-
-use Mmoreram\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
-use Mmoreram\GearmanBundle\Module\JobClass;
+use Mkk\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
+use Mkk\GearmanBundle\Module\JobClass;
 
 /**
  * Tests JobClassTest class
  */
-class JobClassTest extends PHPUnit_Framework_TestCase
+class JobClassTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var JobAnnotation
@@ -86,14 +84,14 @@ class JobClassTest extends PHPUnit_Framework_TestCase
     {
         $this->reflectionMethod = $this
             ->getMockBuilder('\ReflectionMethod')
-            ->setConstructorArgs(array('\Mmoreram\GearmanBundle\Tests\Service\Mocks\SingleCleanFile', 'myMethod'))
+            ->setConstructorArgs(array('\Mkk\GearmanBundle\Tests\Service\Mocks\SingleCleanFile', 'myMethod'))
             ->setMethods(array(
                 'getName',
             ))
             ->getMock();
 
         $this->jobAnnotation = $this
-            ->getMockBuilder('\Mmoreram\GearmanBundle\Driver\Gearman\Job')
+            ->getMockBuilder('\Mkk\GearmanBundle\Driver\Gearman\Job')
             ->disableOriginalConstructor()
             ->getMock();
     }

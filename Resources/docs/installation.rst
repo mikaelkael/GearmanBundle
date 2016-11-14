@@ -53,7 +53,7 @@ You have to add require line into you composer.json file
        "php": ">=5.3.3",
        "symfony/symfony": "2.4.*",
 
-       "mmoreram/gearman-bundle": "dev-master"
+       "mikaelkael/gearman-bundle": "dev-master"
     }
 
 Then you have to use composer to update your project dependencies
@@ -70,15 +70,15 @@ And register the bundle in your appkernel.php file
     return array(
        // ...
        new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-       new Mmoreram\GearmanBundle\GearmanBundle(),
+       new Mkk\GearmanBundle\GearmanBundle(),
        // ...
     );
 
 .. _Gearman: http://gearman.org
 .. _Pear Repository: http://pecl.php.net/package/gearman
-.. _GearmanBundle: https://github.com/mmoreram/GearmanBundle
+.. _GearmanBundle: https://github.com/mikaelkael/GearmanBundle
 
-.. |LatestUnstableVersion| image:: https://poser.pugx.org/mmoreram/gearman-bundle/v/unstable.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
-.. |LatestStableVersion| image:: https://poser.pugx.org/mmoreram/gearman-bundle/v/stable.png
-   :target: https://packagist.org/packages/mmoreram/gearman-bundle
+.. |LatestUnstableVersion| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/v/unstable.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle
+.. |LatestStableVersion| image:: https://poser.pugx.org/mikaelkael/gearman-bundle/v/stable.png
+   :target: https://packagist.org/packages/mikaelkael/gearman-bundle

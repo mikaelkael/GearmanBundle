@@ -16,7 +16,7 @@ method, as folowing example.
     <?php
 
     /**
-     * Gearman Bundle for Symfony2
+     * Gearman Bundle for Symfony2 / Symfony3
      *
      * @author Marc Morera <yuhu@mmoreram.com>
      * @since 2013
@@ -24,7 +24,7 @@ method, as folowing example.
 
     namespace My\Custom\Namespace;
 
-    use Mmoreram\GearmanBundle\Generator\UniqueJobIdentifierGenerator;
+    use Mkk\GearmanBundle\Generator\UniqueJobIdentifierGenerator;
 
     /**
      * Gearman execute methods. All Worker methods

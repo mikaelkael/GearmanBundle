@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,7 +27,7 @@ class AppKernel extends Kernel
         return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new Mmoreram\GearmanBundle\GearmanBundle(),
+            new Mkk\GearmanBundle\GearmanBundle(),
         );
     }
 

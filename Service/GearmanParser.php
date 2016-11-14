@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,24 +11,20 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Service;
+namespace Mkk\GearmanBundle\Service;
 
 use Doctrine\Common\Annotations\Reader;
-use ReflectionClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
-
-use Mmoreram\GearmanBundle\Driver\Gearman\Work as WorkAnnotation;
-use Mmoreram\GearmanBundle\Module\WorkerClass as Worker;
-use Mmoreram\GearmanBundle\Module\WorkerCollection;
+use Mkk\GearmanBundle\Driver\Gearman\Work as WorkAnnotation;
+use Mkk\GearmanBundle\Module\WorkerClass as Worker;
+use Mkk\GearmanBundle\Module\WorkerCollection;
 
 /**
  * Gearman parsing methods
  *
  * This class has responability of parsing, if needed, all defined bundle files
  * looking for some Workers.
- *
- * @since 2.3.1
  */
 class GearmanParser
 {
@@ -239,7 +235,7 @@ class GearmanParser
              * File is accepted to be parsed
              */
             $classNamespace = $this->getFileClassNamespace($file->getRealpath());
-            $reflectionClass = new ReflectionClass($classNamespace);
+            $reflectionClass = new \ReflectionClass($classNamespace);
             $classAnnotations = $reader->getClassAnnotations($reflectionClass);
 
             /**

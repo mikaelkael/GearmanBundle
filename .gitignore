@@ -6,4 +6,4 @@ phpcs.log
 vendor
 phpunit.xml
 .idea
-/coverage.clover
+coverage.clover

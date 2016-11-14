@@ -25,7 +25,7 @@ config gearman cache, using doctrine cache.
           AcmeBundle:
 
              # Bundle name
-             name: MmoreramerinoTestBundle
+             name: MkkTestBundle
 
              # Bundle search can be enabled or disabled
              active: true

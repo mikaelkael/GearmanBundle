@@ -36,7 +36,7 @@ Request a job
 .. code-block:: php
 
     $result = $gearman
-        ->doJob('MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething', json_encode(array('value1')));
+        ->doJob('MkkTestBundleServicesMyAcmeWorker~doSomething', json_encode(array('value1')));
 
     $returnCode = $gearman->getReturnCode();
 
@@ -60,9 +60,9 @@ Tasks
 .. code-block:: php
 
     $gearman
-        ->addTask('MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething', 'value1', $context1)
-        ->addLowTask('MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething', 'value2', $context2)
-        ->addHighBackgroundTask('MmoreramerinoTestBundleServicesMyAcmeWorker~doSomething', 'value3', $context3)
+        ->addTask('MkkTestBundleServicesMyAcmeWorker~doSomething', 'value1', $context1)
+        ->addLowTask('MkkTestBundleServicesMyAcmeWorker~doSomething', 'value2', $context2)
+        ->addHighBackgroundTask('MkkTestBundleServicesMyAcmeWorker~doSomething', 'value3', $context3)
         ->runTasks();
 
 - addTask: Adds a task to be run in parallel with other tasks

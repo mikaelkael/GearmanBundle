@@ -13,7 +13,7 @@ overwrite environment settings.
 
     namespace Acme\AcmeBundle\Workers;
 
-    use Mmoreram\GearmanBundle\Driver\Gearman;
+    use Mkk\GearmanBundle\Driver\Gearman;
 
     /**
      * @Gearman\Work(
@@ -138,7 +138,7 @@ variable in Worker annotation.
 
     namespace Acme\AcmeBundle\Services;
 
-    use Mmoreram\GearmanBundle\Driver\Gearman;
+    use Mkk\GearmanBundle\Driver\Gearman;
 
     /**
      * @Gearman\Work(
@@ -181,7 +181,7 @@ And have this service defined in your dependency injection definition file
 Console output from workers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you need your worker to output information to the console, you can have your worker class implement `Mmoreram\\GearmanBundle\\Command\\Util\\GearmanOutputAwareInterface`.
+If you need your worker to output information to the console, you can have your worker class implement `Mkk\\GearmanBundle\\Command\\Util\\GearmanOutputAwareInterface`.
 
 This interface requires a single method be implemented `public function setOutput(OutputInterface $output);`.
 To avoid needing to check the output is available, you can by default set it to an instance of `Symfony\\Component\\Console\\Output\\NullOutput`.
@@ -191,8 +191,8 @@ To avoid needing to check the output is available, you can by default set it to 
     namespace Acme\AcmeBundle\Services;
 
     use Symfony\Component\Console\Output\NullOutput;
-    use Mmoreram\GearmanBundle\Command\Util\GearmanOutputAwareInterface;
-    use Mmoreram\GearmanBundle\Driver\Gearman;
+    use Mkk\GearmanBundle\Command\Util\GearmanOutputAwareInterface;
+    use Mkk\GearmanBundle\Driver\Gearman;
 
     /**
      * @Gearman\Work(

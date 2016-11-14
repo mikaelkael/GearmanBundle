@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,16 +11,14 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Generator;
+namespace Mkk\GearmanBundle\Generator;
 
-use Mmoreram\GearmanBundle\Exceptions\WorkerNameTooLongException;
+use Mkk\GearmanBundle\Exceptions\WorkerNameTooLongException;
 
 /**
  * Job Unique Key generator
  *
  * @see https://github.com/mmoreram/GearmanBundle/issues/66
- *
- * @since 2.3.1
  */
 class UniqueJobIdentifierGenerator
 {

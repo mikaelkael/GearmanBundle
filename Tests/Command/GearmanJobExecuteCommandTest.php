@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,23 +11,21 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Command;
+namespace Mkk\GearmanBundle\Tests\Command;
 
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-
-use Mmoreram\GearmanBundle\Command\GearmanJobExecuteCommand;
-use Mmoreram\GearmanBundle\Service\GearmanClient;
-use Mmoreram\GearmanBundle\Service\GearmanDescriber;
-use Mmoreram\GearmanBundle\Service\GearmanExecute;
+use Mkk\GearmanBundle\Command\GearmanJobExecuteCommand;
+use Mkk\GearmanBundle\Service\GearmanClient;
+use Mkk\GearmanBundle\Service\GearmanDescriber;
+use Mkk\GearmanBundle\Service\GearmanExecute;
 
 /**
  * Class GearmanJobExecuteCommandTest
  */
-class GearmanJobExecuteCommandTest extends PHPUnit_Framework_TestCase
+class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var GearmanJobExecuteCommand
@@ -91,7 +89,7 @@ class GearmanJobExecuteCommandTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->command = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Command\GearmanJobExecuteCommand')
+            ->getMockBuilder('Mkk\GearmanBundle\Command\GearmanJobExecuteCommand')
             ->setMethods(array(
                 'getHelperSet'
             ))
@@ -137,7 +135,7 @@ class GearmanJobExecuteCommandTest extends PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->gearmanClient = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanClient')
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'getJob'
@@ -145,7 +143,7 @@ class GearmanJobExecuteCommandTest extends PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->gearmanDescriber = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanDescriber')
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanDescriber')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'describeJob'
@@ -153,7 +151,7 @@ class GearmanJobExecuteCommandTest extends PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->gearmanExecute = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanExecute')
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanExecute')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'executeJob'

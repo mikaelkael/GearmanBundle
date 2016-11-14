@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,18 +11,16 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Service;
+namespace Mkk\GearmanBundle\Service;
 
-use Mmoreram\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher;
-use Mmoreram\GearmanBundle\GearmanMethods;
-use Mmoreram\GearmanBundle\Generator\UniqueJobIdentifierGenerator;
-use Mmoreram\GearmanBundle\Module\JobStatus;
-use Mmoreram\GearmanBundle\Service\Abstracts\AbstractGearmanService;
+use Mkk\GearmanBundle\Dispatcher\GearmanCallbacksDispatcher;
+use Mkk\GearmanBundle\GearmanMethods;
+use Mkk\GearmanBundle\Generator\UniqueJobIdentifierGenerator;
+use Mkk\GearmanBundle\Module\JobStatus;
+use Mkk\GearmanBundle\Service\Abstracts\AbstractGearmanService;
 
 /**
  * GearmanClient. Implementation of AbstractGearmanService
- *
- * @since 2.3.1
  */
 class GearmanClient extends AbstractGearmanService
 {

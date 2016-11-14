@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,12 +11,10 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle;
+namespace Mkk\GearmanBundle;
 
 /**
  * Events dispatched by GearmanBundle
- *
- * @since 2.3.1
  */
 class GearmanEvents
 {

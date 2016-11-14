@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,20 +11,17 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Command;
+namespace Mkk\GearmanBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
-use Mmoreram\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mmoreram\GearmanBundle\Service\GearmanClient;
-use Mmoreram\GearmanBundle\Service\GearmanDescriber;
+use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
+use Mkk\GearmanBundle\Service\GearmanClient;
+use Mkk\GearmanBundle\Service\GearmanDescriber;
 
 /**
  * Gearman Job Describe Command class
- *
- * @since 2.3.1
  */
 class GearmanJobDescribeCommand extends AbstractGearmanCommand
 {

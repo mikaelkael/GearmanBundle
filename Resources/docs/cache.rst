@@ -6,7 +6,7 @@ by using custom commands
 
 .. code-block:: bash
 
-    $ php app/console
+    $ php bin/console
 
     gearman
         gearman:cache:clear     Clears gearman cache data on current environment
@@ -16,7 +16,7 @@ Gearman also clear and warmup cache when using Symfony2 cache commands
 
 .. code-block:: bash
 
-    $ php app/console
+    $ php bin/console
 
     cache
         cache:clear             Clears the cache

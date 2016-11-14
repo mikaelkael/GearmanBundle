@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Service;
+namespace Mkk\GearmanBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -30,7 +30,7 @@ class GearmanCacheWrapperTest extends WebTestCase
         static::$kernel->boot();
 
         $this->assertInstanceOf(
-            '\Mmoreram\GearmanBundle\Service\GearmanCacheWrapper',
+            '\Mkk\GearmanBundle\Service\GearmanCacheWrapper',
             static::$kernel
                 ->getContainer()
                 ->get('gearman.cache.wrapper')

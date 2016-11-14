@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,14 +11,12 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Event;
+namespace Mkk\GearmanBundle\Event;
 
-use Mmoreram\GearmanBundle\Event\Abstracts\AbstractGearmanClientTaskEvent;
+use Mkk\GearmanBundle\Event\Abstracts\AbstractGearmanClientTaskEvent;
 
 /**
  * GearmanClientCallbackWorkloadEvent
- *
- * @since 2.3.1
  */
 class GearmanClientCallbackWorkloadEvent extends AbstractGearmanClientTaskEvent
 {

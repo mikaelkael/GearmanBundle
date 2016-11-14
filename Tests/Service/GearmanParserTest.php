@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,15 +11,14 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Service;
+namespace Mkk\GearmanBundle\Tests\Service;
 
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-use Mmoreram\GearmanBundle\Module\WorkerCollection;
-use Mmoreram\GearmanBundle\Service\GearmanParser;
+use Mkk\GearmanBundle\Module\WorkerCollection;
+use Mkk\GearmanBundle\Service\GearmanParser;
 
 /**
  * Tests GearmanParser class
@@ -60,7 +59,7 @@ class GearmanParserTest extends WebTestCase
     public function setUp()
     {
         $this->gearmanParser = $this
-            ->getMockBuilder('\Mmoreram\GearmanBundle\Service\GearmanParser')
+            ->getMockBuilder('\Mkk\GearmanBundle\Service\GearmanParser')
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
@@ -83,7 +82,7 @@ class GearmanParserTest extends WebTestCase
         static::$kernel->boot();
 
         $this->assertInstanceOf(
-            '\Mmoreram\GearmanBundle\Service\GearmanParser',
+            '\Mkk\GearmanBundle\Service\GearmanParser',
             static::$kernel
                 ->getContainer()
                 ->get('gearman.parser')
@@ -101,13 +100,13 @@ class GearmanParserTest extends WebTestCase
          * @var GearmanParser $gearmanParser
          */
         $gearmanParser = $this
-            ->getMockBuilder('\Mmoreram\GearmanBundle\Service\GearmanParser')
+            ->getMockBuilder('\Mkk\GearmanBundle\Service\GearmanParser')
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
         $this->assertEquals(
-            'Mmoreram\GearmanBundle\Tests\Service\Mocks\SingleCleanFile',
+            'Mkk\GearmanBundle\Tests\Service\Mocks\SingleCleanFile',
             $gearmanParser->getFileClassNamespace($mockNamespace)
         );
     }
@@ -123,13 +122,13 @@ class GearmanParserTest extends WebTestCase
          * @var GearmanParser $gearmanParser
          */
         $gearmanParser = $this
-            ->getMockBuilder('\Mmoreram\GearmanBundle\Service\GearmanParser')
+            ->getMockBuilder('\Mkk\GearmanBundle\Service\GearmanParser')
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
         $this->assertEquals(
-            'Mmoreram\GearmanBundle\Tests\Service\Mocks\SingleCommentedFile',
+            'Mkk\GearmanBundle\Tests\Service\Mocks\SingleCommentedFile',
             $gearmanParser->getFileClassNamespace($mockNamespace)
         );
     }
@@ -174,7 +173,7 @@ class GearmanParserTest extends WebTestCase
     public function testParseNamespaceMapSomePaths()
     {
         $this->gearmanParser = $this
-            ->getMockBuilder('\Mmoreram\GearmanBundle\Service\GearmanParser')
+            ->getMockBuilder('\Mkk\GearmanBundle\Service\GearmanParser')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'parseFiles',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@
  * Some phpdoc
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Service\Mocks;
+namespace Mkk\GearmanBundle\Tests\Service\Mocks;
 
 /**
  * Some class comments

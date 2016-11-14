@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Event;
+namespace Mkk\GearmanBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -19,8 +19,6 @@ use Symfony\Component\EventDispatcher\Event;
  * GearmanWorkExecutedEvent
  *
  * @author Dominic Grostate <codekestrel@googlemail.com>
- *
- * @since 2.4.2
  */
 class GearmanWorkExecutedEvent extends Event
 {

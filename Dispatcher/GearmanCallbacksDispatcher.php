@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,25 +11,22 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Dispatcher;
+namespace Mkk\GearmanBundle\Dispatcher;
 
 use GearmanTask;
-
-use Mmoreram\GearmanBundle\Dispatcher\Abstracts\AbstractGearmanDispatcher;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackCompleteEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackCreatedEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackDataEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackExceptionEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackFailEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackStatusEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackWarningEvent;
-use Mmoreram\GearmanBundle\Event\GearmanClientCallbackWorkloadEvent;
-use Mmoreram\GearmanBundle\GearmanEvents;
+use Mkk\GearmanBundle\Dispatcher\Abstracts\AbstractGearmanDispatcher;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackCompleteEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackCreatedEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackDataEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackExceptionEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackFailEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackStatusEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackWarningEvent;
+use Mkk\GearmanBundle\Event\GearmanClientCallbackWorkloadEvent;
+use Mkk\GearmanBundle\GearmanEvents;
 
 /**
  * Gearman callbacks
- *
- * @since 2.3.3
  */
 class GearmanCallbacksDispatcher extends AbstractGearmanDispatcher
 {

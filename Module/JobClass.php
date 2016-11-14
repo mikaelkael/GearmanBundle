@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,20 +11,16 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Module;
+namespace Mkk\GearmanBundle\Module;
 
-use ReflectionMethod;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Mmoreram\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
+use Mkk\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
 
 /**
  * Job class
  *
  * This class provide all worker definition.
- *
- * @since 2.3.1
  */
 class JobClass implements ContainerAwareInterface
 {
@@ -125,14 +121,14 @@ class JobClass implements ContainerAwareInterface
      * Construct method
      *
      * @param JobAnnotation    $jobAnnotation     JobAnnotation class
-     * @param ReflectionMethod $reflectionMethod  ReflextionMethod class
+     * @param \ReflectionMethod $reflectionMethod  ReflextionMethod class
      * @param string           $callableNameClass Callable name class
      * @param array            $servers           Array of servers defined for Worker
      * @param array            $defaultSettings   Default settings for Worker
      */
     public function __construct(
         JobAnnotation $jobAnnotation,
-        ReflectionMethod $reflectionMethod,
+        \ReflectionMethod $reflectionMethod,
         $callableNameClass,
         array $servers,
         array $defaultSettings

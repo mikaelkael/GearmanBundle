@@ -6,7 +6,7 @@ GearmanBundle transforms Gearman callbacks to Symfony2 kernel events.
 Complete Callback
 ~~~~~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackCompleteEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackCompleteEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setCompleteCallback](http://www.php.net/manual/en/gearmanclient.setcompletecallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -22,7 +22,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Created Callback
 ~~~~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackCreatedEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackCreatedEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setCreatedCallback](http://www.php.net/manual/en/gearmanclient.setcreatedcallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -38,7 +38,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Data Callback
 ~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackDataEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackDataEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setDataCallback](http://www.php.net/manual/en/gearmanclient.setdatacallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -54,7 +54,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Exception Callback
 ~~~~~~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackExceptionEvent` with no methods.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackExceptionEvent` with no methods.
 For more information about this GearmanEvent, read [GearmanClient::setExceptionCallback](http://www.php.net/manual/en/gearmanclient.setexceptioncallback.php) documentation.
 
 .. code-block:: yml
@@ -68,7 +68,7 @@ For more information about this GearmanEvent, read [GearmanClient::setExceptionC
 Fail Callback
 ~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackFailEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackFailEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setFailCallback](http://www.php.net/manual/en/gearmanclient.setfailcallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -84,7 +84,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Status Callback
 ~~~~~~~~~~~~~~~
 
-This event receives as a parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackStatusEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as a parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackStatusEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setStatusCallback](http://www.php.net/manual/en/gearmanclient.setstatuscallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -100,7 +100,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Warning Callback
 ~~~~~~~~~~~~~~~~
 
-This event receives as parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackWarningEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackWarningEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setWarningCallback](http://www.php.net/manual/en/gearmanclient.setwarningcallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -116,7 +116,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Workload Callback
 ~~~~~~~~~~~~~~~~~
 
-This event receives as parameter an instance of `Mmoreram\GearmanBundle\Event\GearmanClientCallbackWorkloadEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
+This event receives as parameter an instance of `Mkk\GearmanBundle\Event\GearmanClientCallbackWorkloadEvent` with methods `$event->getGearmanTask()` and `&$event->getContext()`.
 First method returns an instance of `\GearmanTask`.
 For more information about this GearmanEvent, read [GearmanClient::setWorkloadCallback](http://www.php.net/manual/en/gearmanclient.setworkloadcallback.php) documentation.
 The second method will return `$context` that you could add in the `addTask()` method.
@@ -132,7 +132,7 @@ The second method will return `$context` that you could add in the `addTask()` m
 Starting Work Event
 ~~~~~~~~~~~~~~~~~~
 
-This event receives as parameter an instanceof `Mmoreram\GearmanBundle\Event\GearmanWorkStartingEvent` with one method:
+This event receives as parameter an instanceof `Mkk\GearmanBundle\Event\GearmanWorkStartingEvent` with one method:
 `$event->getJobs()` returns the configuration of the jobs.
 
 This event is dispatched before a job starts.
@@ -148,7 +148,7 @@ This event is dispatched before a job starts.
 Execute Work Event
 ~~~~~~~~~~~~~~~~~~
 
-This event receives as parameter an instanceof `Mmoreram\GearmanBundle\Event\GearmanWorkExecutedEvent` with three methods:
+This event receives as parameter an instanceof `Mkk\GearmanBundle\Event\GearmanWorkExecutedEvent` with three methods:
 `$event->getJobs()` returns the configuration of the jobs,
 `$event->getIterationsRemaining()` returns the remaining iterations for these jobs,
 `$event->getReturnCode()` returns the return code of the last executed job.

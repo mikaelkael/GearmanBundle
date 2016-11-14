@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,21 +11,19 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Tests\Command;
+namespace Mkk\GearmanBundle\Tests\Command;
 
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-
-use Mmoreram\GearmanBundle\Command\GearmanJobDescribeCommand;
-use Mmoreram\GearmanBundle\Service\GearmanClient;
-use Mmoreram\GearmanBundle\Service\GearmanDescriber;
+use Mkk\GearmanBundle\Command\GearmanJobDescribeCommand;
+use Mkk\GearmanBundle\Service\GearmanClient;
+use Mkk\GearmanBundle\Service\GearmanDescriber;
 
 /**
  * Class GearmanWorkerDescribeCommandTest
  */
-class GearmanWorkerDescribeCommandTest extends PHPUnit_Framework_TestCase
+class GearmanWorkerDescribeCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test run
@@ -43,7 +41,7 @@ class GearmanWorkerDescribeCommandTest extends PHPUnit_Framework_TestCase
          * @var GearmanDescriber $gearmanDescriber
          */
         $command = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Command\GearmanWorkerDescribeCommand')
+            ->getMockBuilder('Mkk\GearmanBundle\Command\GearmanWorkerDescribeCommand')
             ->setMethods(null)
             ->getMock();
 
@@ -66,7 +64,7 @@ class GearmanWorkerDescribeCommandTest extends PHPUnit_Framework_TestCase
             ->getMock();
 
         $gearmanClient = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanClient')
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'getWorker',
@@ -79,7 +77,7 @@ class GearmanWorkerDescribeCommandTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($worker));
 
         $gearmanDescriber = $this
-            ->getMockBuilder('Mmoreram\GearmanBundle\Service\GearmanDescriber')
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanDescriber')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'describeWorker',

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Gearman Bundle for Symfony2
+ * Gearman Bundle for Symfony2 / Symfony3
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,21 +11,17 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
-namespace Mmoreram\GearmanBundle\Module;
+namespace Mkk\GearmanBundle\Module;
 
 use Doctrine\Common\Annotations\Reader;
-use ReflectionClass;
-
-use Mmoreram\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
-use Mmoreram\GearmanBundle\Driver\Gearman\Work as WorkAnnotation;
-use Mmoreram\GearmanBundle\Module\JobClass as Job;
+use Mkk\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
+use Mkk\GearmanBundle\Driver\Gearman\Work as WorkAnnotation;
+use Mkk\GearmanBundle\Module\JobClass as Job;
 
 /**
  * Worker class
  *
  * This class provide all worker definition.
- *
- * @since 2.3.1
  */
 class WorkerClass
 {
@@ -133,12 +129,12 @@ class WorkerClass
      * Retrieves all jobs available from worker
      *
      * @param WorkAnnotation  $workAnnotation  workAnnotation class
-     * @param ReflectionClass $reflectionClass Reflexion class
+     * @param \ReflectionClass $reflectionClass Reflexion class
      * @param Reader          $reader          Reader class
      * @param array           $servers         Array of servers defined for Worker
      * @param array           $defaultSettings Default settings for Worker
      */
-    public function __construct(WorkAnnotation $workAnnotation, ReflectionClass $reflectionClass, Reader $reader, array $servers, array $defaultSettings)
+    public function __construct(WorkAnnotation $workAnnotation, \ReflectionClass $reflectionClass, Reader $reader, array $servers, array $defaultSettings)
     {
 
         $this->namespace = $reflectionClass->getNamespaceName();
@@ -288,12 +284,12 @@ class WorkerClass
     /**
      * Creates job collection of worker
      *
-     * @param ReflectionClass $reflectionClass Reflexion class
+     * @param \ReflectionClass $reflectionClass Reflexion class
      * @param Reader          $reader          ReaderAnnotation class
      *
      * @return JobCollection self Object
      */
-    private function createJobCollection(ReflectionClass $reflectionClass, Reader $reader)
+    private function createJobCollection(\ReflectionClass $reflectionClass, Reader $reader)
     {
         $jobCollection = new JobCollection;
 
