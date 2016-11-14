@@ -9,10 +9,6 @@ Tags
 -  Use last stable version tag to stay in a stable release.
 -  |LatestUnstableVersion| |LatestStableVersion|
 
-.. note:: As long as Symfony2 versions 2.1 and 2.2 are not maintained anymore,
-          and as long as these branches had same code than master branch, they
-          all have been deleted
-
 Installing `Gearman`_
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,14 +25,24 @@ And start server
 
     $ service gearman-job-server start
 
-Then you need to install **Gearman driver** using the following commands
+Then you need to install **Gearman driver** using the following commands:
+
+- for PHP 5.x
 
 .. code-block:: bash
 
-    $ pecl install channel://pecl.php.net/gearman-X.X.X
+    $ pecl install channel://pecl.php.net/gearman
+
+- for PHP 7
+
+.. code-block:: bash
+
+    $ curl -L -o gearman.tgz https://github.com/wcgallego/pecl-gearman/archive/gearman-2.0.1.tar.gz
+    $ tar -xzf gearman.tgz
+    $ cd pecl-gearman-gearman-2.0.1 && phpize && ./configure && make && sudo make install
 
 You will find all available gearman versions in `Pear Repository`_
-Finally you need to start php module
+Finally you need to start php module if it's not already made
 
 .. code-block:: bash
 
@@ -50,9 +56,6 @@ You have to add require line into you composer.json file
 .. code-block:: yml
 
     "require": {
-       "php": ">=5.3.3",
-       "symfony/symfony": "2.4.*",
-
        "mikaelkael/gearman-bundle": "dev-master"
     }
 
@@ -62,6 +65,20 @@ Then you have to use composer to update your project dependencies
 
     $ curl -sS https://getcomposer.org/installer | php
     $ php composer.phar update
+
+Register the GearmanBundle annotations in app/autoload.php
+
+.. code-block:: php
+
+    <?php
+    // app/autoload.php
+    AnnotationRegistry::registerFile(
+        $kernel->locateResource(__DIR__ . '/../vendor/mikaelkael/GearmanBundle/Driver/Gearman/Work.php')
+    );
+    AnnotationRegistry::registerFile(
+        $kernel->locateResource(__DIR__ . '/../vendor/mikaelkael/GearmanBundle/Driver/Gearman/Job.php')
+    );
+
 
 And register the bundle in your appkernel.php file
 
