@@ -5,5 +5,4 @@ composer.phar
 phpcs.log
 vendor
 phpunit.xml
-.idea
 coverage.clover
