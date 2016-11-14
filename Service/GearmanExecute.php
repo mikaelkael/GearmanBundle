@@ -375,12 +375,12 @@ class GearmanExecute extends AbstractGearmanService
         if (!empty($servers)) {
 
             foreach ($servers as $server) {
-                if (@$gmworker->addServer($server['host'], $server['port'])) {
+                if ($gmworker->addServer($server['host'], $server['port'])) {
                     $successes[] = $server;
                 }
             }
         } else {
-            if (@$gmworker->addServer()) {
+            if ($gmworker->addServer()) {
                 $successes[] = array('127.0.0.1', 4730);
             }
         }
