@@ -37,13 +37,6 @@ class GearmanParser
     private $kernelBundles;
 
     /**
-     * @var KernelInterface
-     *
-     * Kernel object
-     */
-    private $kernel;
-
-    /**
      * @var Reader
      *
      * Annotation Reader
@@ -98,7 +91,6 @@ class GearmanParser
     )
     {
         $this->kernelBundles = $kernel->getBundles();
-        $this->kernel = $kernel;
         $this->reader = $reader;
         $this->finder = $finder;
         $this->bundles = $bundles;
