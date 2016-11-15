@@ -72,11 +72,7 @@ class GearmanCacheClearCommand extends AbstractGearmanCommand
         if (
             !$input->getOption('quiet')
         ) {
-            $kernelEnvironment = $this
-                ->kernel
-                ->getEnvironment();
-
-            $output->writeln('Clearing the cache for the ' . $kernelEnvironment . ' environment');
+            $output->writeln('Clearing the cache for the ' . $this->environment . ' environment');
         }
         $this
             ->gearmanCacheWrapper

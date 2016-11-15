@@ -6,7 +6,7 @@ services:
     gearman.command.cache_clear:
         class: "%gearman.command.cache_clear.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
+            - ["setEnvironment", ["%kernel.environment%"]]
             - ["setGearmanCacheWrapper", ["@gearman.cache.wrapper"]]
         tags:
             - { name: console.command }
@@ -14,7 +14,7 @@ services:
     gearman.command.cache_warmup:
         class: "%gearman.command.cache_warmup.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
+            - ["setEnvironment", ["%kernel.environment%"]]
             - ["setGearmanCacheWrapper", ["@gearman.cache.wrapper"]]
         tags:
             - { name: console.command }
@@ -22,7 +22,6 @@ services:
     gearman.command.job_describe:
         class: "%gearman.command.job_describe.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
             - ["setGearmanClient", ["@gearman"]]
             - ["setGearmanDescriber", ["@gearman.describer"]]
         tags:
@@ -31,7 +30,6 @@ services:
     gearman.command.job_execute:
         class: "%gearman.command.job_execute.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
             - ["setGearmanClient", ["@gearman"]]
             - ["setGearmanDescriber", ["@gearman.describer"]]
             - ["setGearmanExecute", ["@gearman.execute"]]
@@ -41,7 +39,6 @@ services:
     gearman.command.worker_describe:
         class: "%gearman.command.worker_describe.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
             - ["setGearmanClient", ["@gearman"]]
             - ["setGearmanDescriber", ["@gearman.describer"]]
         tags:
@@ -50,7 +47,6 @@ services:
     gearman.command.worker_execute:
         class: "%gearman.command.worker_execute.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
             - ["setGearmanClient", ["@gearman"]]
             - ["setGearmanDescriber", ["@gearman.describer"]]
             - ["setGearmanExecute", ["@gearman.execute"]]
@@ -60,7 +56,6 @@ services:
     gearman.command.worker_list:
         class: "%gearman.command.worker_list.class%"
         calls:
-            - ["setKernel", ["@kernel"]]
             - ["setGearmanClient", ["@gearman"]]
         tags:
             - { name: console.command }

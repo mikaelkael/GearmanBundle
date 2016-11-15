@@ -45,9 +45,6 @@ class GearmanCacheWarmupCommand extends AbstractGearmanCommand
     }
 
     /**
-     * Set the kernel environment
-
-    /**
      * Console Command configuration
      */
     protected function configure()
@@ -75,11 +72,7 @@ class GearmanCacheWarmupCommand extends AbstractGearmanCommand
         if (
             !$input->getOption('quiet')
         ) {
-            $kernelEnvironment = $this
-                ->kernel
-                ->getEnvironment();
-
-            $output->writeln('Warming the cache for the ' . $kernelEnvironment . ' environment');
+            $output->writeln('Warming the cache for the ' . $this->environment . ' environment');
         }
 
         $this

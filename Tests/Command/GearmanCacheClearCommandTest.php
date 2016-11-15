@@ -53,13 +53,6 @@ class GearmanCacheClearCommandTest extends \PHPUnit_Framework_TestCase
     protected $gearmanCacheWrapper;
 
     /**
-     * @var KernelInterface
-     *
-     * Kernel
-     */
-    protected $kernel;
-
-    /**
      * Set up method
      */
     public function setUp()
@@ -81,12 +74,6 @@ class GearmanCacheClearCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array())
             ->getMock();
 
-        $this->kernel = $this
-            ->getMockBuilder('Symfony\Component\HttpKernel\KernelInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
         $this->gearmanCacheWrapper = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanCacheWrapper')
             ->disableOriginalConstructor()
@@ -101,15 +88,8 @@ class GearmanCacheClearCommandTest extends \PHPUnit_Framework_TestCase
             ->method('clear');
 
         $this
-            ->kernel
-            ->expects($this->any())
-            ->method('getEnvironment')
-            ->will($this->returnValue('dev'));
-
-        $this
             ->command
-            ->setGearmanCacheWrapper($this->gearmanCacheWrapper)
-            ->setKernel($this->kernel);
+            ->setGearmanCacheWrapper($this->gearmanCacheWrapper);
     }
 
     /**

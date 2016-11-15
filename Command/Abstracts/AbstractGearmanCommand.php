@@ -14,7 +14,6 @@
 namespace Mkk\GearmanBundle\Command\Abstracts;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class AbstractGearmanCommand
@@ -22,23 +21,22 @@ use Symfony\Component\HttpKernel\KernelInterface;
 abstract class AbstractGearmanCommand extends Command
 {
     /**
-     * @var KernelInterface
+     * @var string
      *
-     * Kernel
+     * Environment
      */
-    protected $kernel;
+    protected $environment;
 
     /**
-     * Set kernel
+     * Set environment
      *
-     * @param KernelInterface $kernel Kernel
+     * @param string $environment Environment
      *
      * @return AbstractGearmanCommand self Object
      */
-    public function setKernel(KernelInterface $kernel)
+    public function setEnvironment($environment)
     {
-        $this->kernel = $kernel;
-
+        $this->environment = $environment;
         return $this;
     }
 }

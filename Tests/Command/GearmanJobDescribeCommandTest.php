@@ -57,12 +57,6 @@ class GearmanJobDescribeCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array())
             ->getMock();
 
-        $kernel = $this
-            ->getMockBuilder('Symfony\Component\HttpKernel\KernelInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
         $gearmanClient = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
@@ -89,15 +83,9 @@ class GearmanJobDescribeCommandTest extends \PHPUnit_Framework_TestCase
             ->method('describeJob')
             ->with($this->equalTo($output), $this->equalTo($job));
 
-        $kernel
-            ->expects($this->any())
-            ->method('getEnvironment')
-            ->will($this->returnValue('dev'));
-
         $command
             ->setGearmanClient($gearmanClient)
             ->setGearmanDescriber($gearmanDescriber)
-            ->setKernel($kernel)
             ->run($input, $output);
     }
 }

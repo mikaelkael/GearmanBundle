@@ -77,13 +77,6 @@ class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
     protected $gearmanExecute;
 
     /**
-     * @var KernelInterface
-     *
-     * Kernel
-     */
-    protected $kernel;
-
-    /**
      * setup
      */
     public function setUp()
@@ -128,12 +121,6 @@ class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array())
             ->getMock();
 
-        $this->kernel = $this
-            ->getMockBuilder('Symfony\Component\HttpKernel\KernelInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
         $this->gearmanClient = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
@@ -158,10 +145,6 @@ class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
             ))
             ->getMock();
 
-        $this->kernel
-            ->expects($this->any())
-            ->method('getEnvironment')
-            ->will($this->returnValue('dev'));
     }
 
     /**
@@ -220,7 +203,6 @@ class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
             ->setGearmanClient($this->gearmanClient)
             ->setGearmanDescriber($this->gearmanDescriber)
             ->setGearmanExecute($this->gearmanExecute)
-            ->setKernel($this->kernel)
             ->run($this->input, $this->output);
     }
 

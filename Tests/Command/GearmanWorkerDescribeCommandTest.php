@@ -89,15 +89,9 @@ class GearmanWorkerDescribeCommandTest extends \PHPUnit_Framework_TestCase
             ->method('describeWorker')
             ->with($this->equalTo($output), $this->equalTo($worker));
 
-        $kernel
-            ->expects($this->any())
-            ->method('getEnvironment')
-            ->will($this->returnValue('dev'));
-
         $command
             ->setGearmanClient($gearmanClient)
             ->setGearmanDescriber($gearmanDescriber)
-            ->setKernel($kernel)
             ->run($input, $output);
     }
 }

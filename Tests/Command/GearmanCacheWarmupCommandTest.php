@@ -53,13 +53,6 @@ class GearmanCacheWarmupCommandTest extends \PHPUnit_Framework_TestCase
     protected $gearmanCacheWrapper;
 
     /**
-     * @var KernelInterface
-     *
-     * Kernel
-     */
-    protected $kernel;
-
-    /**
      * Set up method
      */
     public function setUp()
@@ -101,15 +94,8 @@ class GearmanCacheWarmupCommandTest extends \PHPUnit_Framework_TestCase
             ->method('warmup');
 
         $this
-            ->kernel
-            ->expects($this->any())
-            ->method('getEnvironment')
-            ->will($this->returnValue('dev'));
-
-        $this
             ->command
-            ->setGearmanCacheWrapper($this->gearmanCacheWrapper)
-            ->setKernel($this->kernel);
+            ->setGearmanCacheWrapper($this->gearmanCacheWrapper);
     }
 
     /**
