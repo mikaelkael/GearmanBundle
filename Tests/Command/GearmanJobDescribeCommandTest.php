@@ -9,53 +9,32 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Tests\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Mkk\GearmanBundle\Command\GearmanJobDescribeCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-use Mkk\GearmanBundle\Service\GearmanDescriber;
 
 /**
  * Class GearmanJobDescribeCommandTest
  */
-class GearmanJobDescribeCommandTest extends \PHPUnit_Framework_TestCase
+class GearmanJobDescribeCommandTest extends WebTestCase
 {
     /**
      * test run
      */
     public function testRun()
     {
-        $job = array('xxx');
+        $kernel = static::createKernel();
+        $kernel->boot();
 
-        /**
-         * @var GearmanJobDescribeCommand $command
-         * @var InputInterface $input
-         * @var OutputInterface $output
-         * @var KernelInterface $kernel
-         * @var GearmanClient $gearmanClient
-         * @var GearmanDescriber $gearmanDescriber
-         */
-        $command = $this
-            ->getMockBuilder('Mkk\GearmanBundle\Command\GearmanJobDescribeCommand')
-            ->setMethods(null)
-            ->getMock();
-
-        $input = $this
-            ->getMockBuilder('Symfony\Component\Console\Input\InputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
-        $output = $this
-            ->getMockBuilder('Symfony\Component\Console\Output\OutputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
+        $application = new Application($kernel);
+        $application->add(new GearmanJobDescribeCommand());
 
         $gearmanClient = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
@@ -65,27 +44,58 @@ class GearmanJobDescribeCommandTest extends \PHPUnit_Framework_TestCase
             ))
             ->getMock();
 
+        $workers = array(
+                'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+                'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
+                'namespace'    => "test",
+                'callableName' => null,
+                'service'      => false,
+                'iterations'   => 1,
+                'description'  => "test",
+                'jobs'         => array(),
+                'servers'      => array(),
+                'job'          => array(
+                    'methodName'               => "myMethod",
+                    'callableName'             => "callableNameTest",
+                    'realCallableName'         => "realCallableNameTest",
+                    'jobPrefix'                => NULL,
+                    'realCallableNameNoPrefix' => "realCallableNameTest",
+                    'iterations'               => 1,
+                    'defaultMethod'            => "doBackground",
+                    'servers'                  => array(),
+                    'description'              => "test description",
+            )
+        );
+
         $gearmanClient
             ->expects($this->once())
             ->method('getJob')
-            ->will($this->returnValue($job));
+            ->will($this->returnValue($workers));
 
-        $gearmanDescriber = $this
-            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanDescriber')
-            ->disableOriginalConstructor()
-            ->setMethods(array(
-                'describeJob'
-            ))
-            ->getMock();
+        $kernel->getContainer()->set('gearman', $gearmanClient);
 
-        $gearmanDescriber
-            ->expects($this->once())
-            ->method('describeJob')
-            ->with($this->equalTo($output), $this->equalTo($job));
+        $command = $application->find('gearman:job:describe');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName(),
+            'job' => 'test1'
+        ));
+        $this->assertContains('@job\callableName : realCallableNameTest', $commandTester->getDisplay());
+    }
 
-        $command
-            ->setGearmanClient($gearmanClient)
-            ->setGearmanDescriber($gearmanDescriber)
-            ->run($input, $output);
+    public function testRunWithoutArgumentJob()
+    {
+        $this->expectException(RuntimeException::class);
+
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new GearmanJobDescribeCommand());
+        $command = $application->find('gearman:job:describe');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName(),
+        ));
     }
 }

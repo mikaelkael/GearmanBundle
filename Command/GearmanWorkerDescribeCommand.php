@@ -9,6 +9,7 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Command;
@@ -16,57 +17,13 @@ namespace Mkk\GearmanBundle\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-use Mkk\GearmanBundle\Service\GearmanDescriber;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Gearman Job Describe Command class
  */
-class GearmanWorkerDescribeCommand extends AbstractGearmanCommand
+class GearmanWorkerDescribeCommand extends ContainerAwareCommand
 {
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * @var GearmanDescriber
-     *
-     * GearmanDescriber
-     */
-    protected $gearmanDescriber;
-
-    /**
-     * Set gearman client
-     *
-     * @param GearmanClient $gearmanClient Gearman client
-     *
-     * @return GearmanWorkerDescribeCommand self Object
-     */
-    public function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-
-        return $this;
-    }
-
-    /**
-     * set Gearman describer
-     *
-     * @param GearmanDescriber $gearmanDescriber GearmanDescriber
-     *
-     * @return GearmanWorkerDescribeCommand self Object
-     */
-    public function setGearmanDescriber(GearmanDescriber $gearmanDescriber)
-    {
-        $this->gearmanDescriber = $gearmanDescriber;
-
-        return $this;
-    }
-
     /**
      * Console Command configuration
      */
@@ -98,11 +55,11 @@ class GearmanWorkerDescribeCommand extends AbstractGearmanCommand
     {
         $worker = $input->getArgument('worker');
         $worker = $this
-            ->gearmanClient
+            ->getContainer()->get('gearman')
             ->getWorker($worker);
 
         $this
-            ->gearmanDescriber
+            ->getContainer()->get('gearman.describer')
             ->describeWorker(
                 $output,
                 $worker

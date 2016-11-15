@@ -9,281 +9,252 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Tests\Command;
 
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Mkk\GearmanBundle\Command\GearmanJobExecuteCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-use Mkk\GearmanBundle\Service\GearmanDescriber;
-use Mkk\GearmanBundle\Service\GearmanExecute;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Class GearmanJobExecuteCommandTest
  */
-class GearmanJobExecuteCommandTest extends \PHPUnit_Framework_TestCase
+class GearmanJobExecuteCommandTest extends WebTestCase
 {
-    /**
-     * @var GearmanJobExecuteCommand
-     *
-     * Command
-     */
-    protected $command;
 
     /**
-     * @var InputInterface
-     *
-     * Input
+     * Test run
      */
-    protected $input;
-
-    /**
-     * @var OutputInterface
-     *
-     * Output
-     */
-    protected $output;
-
-    /**
-     * @var QuestionHelper
-     *
-     * Question helper
-     */
-    protected $questionHelper;
-
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * @var GearmanDescriber
-     *
-     * Gearman describer
-     */
-    protected $gearmanDescriber;
-
-    /**
-     * @var GearmanExecute
-     *
-     * Gearman execute
-     */
-    protected $gearmanExecute;
-
-    /**
-     * setup
-     */
-    public function setUp()
+    public function testRun()
     {
-        $this->command = $this
-            ->getMockBuilder('Mkk\GearmanBundle\Command\GearmanJobExecuteCommand')
-            ->setMethods(array(
-                'getHelperSet'
-            ))
-            ->getMock();
+        $kernel = static::createKernel();
+        $kernel->boot();
 
-        $this->questionHelper = $this
-            ->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
-            ->setMethods(array('ask'))
-            ->getMock();
+        $application = new Application($kernel);
+        $application->add(new GearmanJobExecuteCommand());
 
-        $helperSet = $this
-            ->getMockBuilder('Symfony\Component\Console\Helper\HelperSet')
-            ->setMethods(array('get'))
-            ->getMock();
-
-        $helperSet
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($this->questionHelper));
-
-        $this
-            ->command
-            ->expects($this->any())
-            ->method('getHelperSet')
-            ->will($this->returnValue($helperSet));
-
-        $this->input = $this
-            ->getMockBuilder('Symfony\Component\Console\Input\InputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
-        $this->output = $this
-            ->getMockBuilder('Symfony\Component\Console\Output\OutputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
-        $this->gearmanClient = $this
+        $gearmanClient = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'getJob'
             ))
             ->getMock();
-
-        $this->gearmanDescriber = $this
-            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanDescriber')
-            ->disableOriginalConstructor()
-            ->setMethods(array(
-                'describeJob'
-            ))
-            ->getMock();
-
-        $this->gearmanExecute = $this
+        $workers = array(
+            'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+            'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
+            'namespace'    => "test",
+            'callableName' => null,
+            'service'      => false,
+            'iterations'   => 1,
+            'description'  => "test",
+            'jobs'         => array(),
+            'servers'      => array(),
+            'job'          => array(
+                'methodName'               => "myMethod",
+                'callableName'             => "callableNameTest",
+                'realCallableName'         => "realCallableNameTest",
+                'jobPrefix'                => NULL,
+                'realCallableNameNoPrefix' => "realCallableNameTest",
+                'iterations'               => 1,
+                'defaultMethod'            => "doBackground",
+                'servers'                  => array(),
+                'description'              => "test description",
+            )
+        );
+        $gearmanClient
+            ->expects($this->once())
+            ->method('getJob')
+            ->will($this->returnValue($workers));
+        $gearmanExecute = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanExecute')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'executeJob'
             ))
             ->getMock();
+        $kernel->getContainer()->set('gearman', $gearmanClient);
+        $kernel->getContainer()->set('gearman.execute', $gearmanExecute);
 
-    }
-
-    /**
-     * Test quietness
-     *
-     * @dataProvider dataQuietness
-     */
-    public function testQuietness(
-        $quiet,
-        $noInteraction,
-        $confirmation,
-        $countWriteln,
-        $countDescriber,
-        $countClient,
-        $countExecute
-    )
-    {
-        $this
-            ->input
-            ->expects($this->any())
-            ->method('getOption')
-            ->will($this->returnValueMap(array(
-                array('quiet', $quiet),
-                array('no-interaction', $noInteraction)
-            )));
-
-        $this
-            ->questionHelper
-            ->expects($this->any())
+        $question = $this
+            ->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'ask'
+            ))
+            ->getMock();
+        $question
+            ->expects($this->once())
             ->method('ask')
-            ->will($this->returnValue($confirmation));
+            ->will($this->returnValue(true));
 
-        $this
-            ->output
-            ->expects($countWriteln)
-            ->method('writeln');
-
-        $this
-            ->gearmanDescriber
-            ->expects($countDescriber)
-            ->method('describeJob')
-            ->will($this->returnValue('olakase'));
-
-        $this
-            ->gearmanClient
-            ->expects($countClient)
-            ->method('getJob')
-            ->will($this->returnValue(array()));
-
-        $this
-            ->gearmanExecute
-            ->expects($countExecute)
-            ->method('executeJob');
-
-        $this->command
-            ->setGearmanClient($this->gearmanClient)
-            ->setGearmanDescriber($this->gearmanDescriber)
-            ->setGearmanExecute($this->gearmanExecute)
-            ->run($this->input, $this->output);
+        $command       = $application->find('gearman:job:execute');
+        $command->getHelperSet()->set($question, 'question');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName(),
+            'job'     => 'test'
+        ));
+        $this->assertContains('loading...', $commandTester->getDisplay());
+        $this->assertContains('@job\callableName : realCallableNameTest', $commandTester->getDisplay());
     }
 
     /**
-     * Data provider for testQuietness
+     * Test run with no interaction
      */
-    public function dataQuietness()
+    public function testRunNoInteraction()
     {
-        return array(
-            array(
-                true,
-                true,
-                true,
-                $this->never(),
-                $this->never(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                true,
-                true,
-                false,
-                $this->never(),
-                $this->never(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                true,
-                false,
-                true,
-                $this->never(),
-                $this->never(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                true,
-                false,
-                false,
-                $this->never(),
-                $this->never(),
-                $this->never(),
-                $this->never(),
-            ),
-            array(
-                false,
-                true,
-                true,
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                false,
-                true,
-                false,
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                false,
-                false,
-                true,
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-                $this->atLeastOnce(),
-            ),
-            array(
-                false,
-                false,
-                false,
-                $this->any(),
-                $this->any(),
-                $this->never(),
-                $this->never(),
-            ),
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new GearmanJobExecuteCommand());
+
+        $gearmanClient = $this
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'getJob'
+            ))
+            ->getMock();
+        $workers = array(
+            'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+            'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
+            'namespace'    => "test",
+            'callableName' => null,
+            'service'      => false,
+            'iterations'   => 1,
+            'description'  => "test",
+            'jobs'         => array(),
+            'servers'      => array(),
+            'job'          => array(
+                'methodName'               => "myMethod",
+                'callableName'             => "callableNameTest",
+                'realCallableName'         => "realCallableNameTest",
+                'jobPrefix'                => NULL,
+                'realCallableNameNoPrefix' => "realCallableNameTest",
+                'iterations'               => 1,
+                'defaultMethod'            => "doBackground",
+                'servers'                  => array(),
+                'description'              => "test description",
+            )
         );
+        $gearmanClient
+            ->expects($this->once())
+            ->method('getJob')
+            ->will($this->returnValue($workers));
+        $gearmanExecute = $this
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanExecute')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'executeJob'
+            ))
+            ->getMock();
+        $kernel->getContainer()->set('gearman', $gearmanClient);
+        $kernel->getContainer()->set('gearman.execute', $gearmanExecute);
+
+        $question = $this
+            ->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'ask'
+            ))
+            ->getMock();
+        $question
+            ->expects($this->never())
+            ->method('ask')
+            ->will($this->returnValue(true));
+
+        $command       = $application->find('gearman:job:execute');
+        $command->getHelperSet()->set($question, 'question');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName(),
+            'job'     => 'test',
+            '--no-interaction' => null
+        ));
+        $this->assertContains('loading...', $commandTester->getDisplay());
+        $this->assertContains('@job\callableName : realCallableNameTest', $commandTester->getDisplay());
+    }
+
+
+    /**
+     * Test run quietness
+     */
+    public function testRunQuietness()
+    {
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new GearmanJobExecuteCommand());
+
+        $gearmanClient = $this
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'getJob'
+            ))
+            ->getMock();
+        $workers = array(
+            'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+            'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
+            'namespace'    => "test",
+            'callableName' => null,
+            'service'      => false,
+            'iterations'   => 1,
+            'description'  => "test",
+            'jobs'         => array(),
+            'servers'      => array(),
+            'job'          => array(
+                'methodName'               => "myMethod",
+                'callableName'             => "callableNameTest",
+                'realCallableName'         => "realCallableNameTest",
+                'jobPrefix'                => NULL,
+                'realCallableNameNoPrefix' => "realCallableNameTest",
+                'iterations'               => 1,
+                'defaultMethod'            => "doBackground",
+                'servers'                  => array(),
+                'description'              => "test description",
+            )
+        );
+        $gearmanClient
+            ->expects($this->once())
+            ->method('getJob')
+            ->will($this->returnValue($workers));
+        $gearmanExecute = $this
+            ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanExecute')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'executeJob'
+            ))
+            ->getMock();
+        $kernel->getContainer()->set('gearman', $gearmanClient);
+        $kernel->getContainer()->set('gearman.execute', $gearmanExecute);
+
+        $question = $this
+            ->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
+            ->disableOriginalConstructor()
+            ->setMethods(array(
+                'ask'
+            ))
+            ->getMock();
+        $question
+            ->expects($this->once())
+            ->method('ask')
+            ->will($this->returnValue(true));
+
+        $command       = $application->find('gearman:job:execute');
+        $command->getHelperSet()->set($question, 'question');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName(),
+            'job'     => 'test',
+            '--quiet' => null
+        ));
+        $this->assertEmpty($commandTester->getDisplay());
     }
 }

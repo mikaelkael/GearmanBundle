@@ -9,41 +9,20 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Gearman Job List Command class
  */
-class GearmanWorkerListCommand extends AbstractGearmanCommand
+class GearmanWorkerListCommand extends ContainerAwareCommand
 {
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * Set gearman client
-     *
-     * @param GearmanClient $gearmanClient Gearman client
-     *
-     * @return GearmanWorkerListCommand self Object
-     */
-    public function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-
-        return $this;
-    }
-
     /**
      * Console Command configuration
      */
@@ -72,7 +51,7 @@ class GearmanWorkerListCommand extends AbstractGearmanCommand
             return;
         }
 
-        $workers = $this->gearmanClient->getWorkers();
+        $workers = $this->getContainer()->get('gearman')->getWorkers();
 
         if (is_array($workers)) {
 

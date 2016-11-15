@@ -9,134 +9,95 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Tests\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Mkk\GearmanBundle\Command\GearmanWorkerListCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Tester\CommandTester;
 /**
  * Class GearmanWorkerListCommandTest
  */
-class GearmanWorkerListCommandTest extends \PHPUnit_Framework_TestCase
+class GearmanWorkerListCommandTest extends WebTestCase
 {
     /**
-     * @var GearmanWorkerListCommand
-     *
-     * Command
+     * Test run
      */
-    protected $command;
-
-    /**
-     * @var InputInterface
-     *
-     * Input
-     */
-    protected $input;
-
-    /**
-     * @var OutputInterface
-     *
-     * Output
-     */
-    protected $output;
-
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * setup
-     */
-    public function setUp()
+    public function testRunWithWorker()
     {
-        $this->command = $this
-            ->getMockBuilder('Mkk\GearmanBundle\Command\GearmanWorkerListCommand')
-            ->setMethods(null)
-            ->getMock();
+        $kernel = static::createKernel();
+        $kernel->boot();
 
-        $this->input = $this
-            ->getMockBuilder('Symfony\Component\Console\Input\InputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
+        $application = new Application($kernel);
+        $application->add(new GearmanWorkerListCommand());
 
-        $this->output = $this
-            ->getMockBuilder('Symfony\Component\Console\Output\OutputInterface')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
-        $this->gearmanClient = $this
+        $gearmanClient = $this
             ->getMockBuilder('Mkk\GearmanBundle\Service\GearmanClient')
             ->disableOriginalConstructor()
             ->setMethods(array(
-                'getWorkers',
+                'getWorkers'
             ))
             ->getMock();
-
-        $this->gearmanClient
-            ->expects($this->any())
-            ->method('getWorkers')
-            ->will($this->returnValue(array(
-                array(
-                    'className'    => '',
-                    'callableName' => '',
-                    'jobs'         => array()
-                ),
-            )));
-
-    }
-
-    /**
-     * Test quietness
-     *
-     * @dataProvider dataQuietness
-     */
-    public function testQuietness(
-        $quiet,
-        $countWriteln
-    )
-    {
-        $this
-            ->input
-            ->expects($this->any())
-            ->method('getOption')
-            ->will($this->returnValueMap(array(
-                array('quiet', $quiet)
-            )));
-
-        $this
-            ->output
-            ->expects($countWriteln)
-            ->method('writeln');
-
-        $this->command
-            ->setGearmanClient($this->gearmanClient)
-            ->run($this->input, $this->output);
-    }
-
-    /**
-     * Data provider for testQuietness
-     */
-    public function dataQuietness()
-    {
-        return array(
+        $workers = array(
             array(
-                true,
-                $this->never(),
-            ),
-            array(
-                false,
-                $this->atLeastOnce(),
-            ),
+                'className'    => "Mkk\\GearmanBundle\\Tests\\Service\\Mocks\\SingleCleanFile",
+                'fileName'     => dirname(__FILE__) . '/Mocks/SingleCleanFile.php',
+                'namespace'    => "test",
+                'callableName' => null,
+                'service'      => false,
+                'iterations'   => 1,
+                'description'  => "test",
+                'jobs'         => array(),
+                'servers'      => array(),
+                'jobs'         => array(
+                    array(
+                        'methodName'               => "myMethod",
+                        'callableName'             => "callableNameTest",
+                        'realCallableName'         => "realCallableNameTest",
+                        'jobPrefix'                => NULL,
+                        'realCallableNameNoPrefix' => "realCallableNameTest",
+                        'iterations'               => 1,
+                        'defaultMethod'            => "doBackground",
+                        'servers'                  => array(),
+                        'description'              => "test description"
+                    )
+                )
+            )
         );
+        $gearmanClient
+            ->expects($this->once())
+            ->method('getWorkers')
+            ->will($this->returnValue($workers));
+        $kernel->getContainer()->set('gearman', $gearmanClient);
+
+        $command       = $application->find('gearman:worker:list');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName()
+        ));
+        $this->assertContains('@Worker:  Mkk\GearmanBundle\Tests\Service\Mocks\SingleCleanFile', $commandTester->getDisplay());
+        $this->assertContains('callablename: realCallableNameTest', $commandTester->getDisplay());
+    }
+
+    /**
+     * Test run
+     */
+    public function testRunWithoutWorker()
+    {
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        $application = new Application($kernel);
+        $application->add(new GearmanWorkerListCommand());
+
+        $command       = $application->find('gearman:worker:list');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array(
+            'command' => $command->getName()
+        ));
+        $this->assertEmpty($commandTester->getDisplay());
     }
 }

@@ -9,6 +9,7 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Command;
@@ -18,37 +19,14 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-use Mkk\GearmanBundle\Service\GearmanDescriber;
-use Mkk\GearmanBundle\Service\GearmanExecute;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
  * Gearman Job Execute Command class
  */
-class GearmanJobExecuteCommand extends AbstractGearmanCommand
+class GearmanJobExecuteCommand extends ContainerAwareCommand
 {
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * @var GearmanDescriber
-     *
-     * GearmanDescriber
-     */
-    protected $gearmanDescriber;
-
-    /**
-     * @var GearmanExecute
-     *
-     * Gearman execute
-     */
-    protected $gearmanExecute;
 
     /**
      * @var QuestionHelper
@@ -56,48 +34,6 @@ class GearmanJobExecuteCommand extends AbstractGearmanCommand
      * Question
      */
     protected $question;
-
-    /**
-     * Set gearman client
-     *
-     * @param GearmanClient $gearmanClient Gearman client
-     *
-     * @return GearmanJobExecuteCommand self Object
-     */
-    public function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-
-        return $this;
-    }
-
-    /**
-     * set Gearman describer
-     *
-     * @param GearmanDescriber $gearmanDescriber GearmanDescriber
-     *
-     * @return GearmanJobExecuteCommand self Object
-     */
-    public function setGearmanDescriber(GearmanDescriber $gearmanDescriber)
-    {
-        $this->gearmanDescriber = $gearmanDescriber;
-
-        return $this;
-    }
-
-    /**
-     * set Gearman execute
-     *
-     * @param GearmanExecute $gearmanExecute GearmanExecute
-     *
-     * @return GearmanJobExecuteCommand self Object
-     */
-    public function setGearmanExecute(GearmanExecute $gearmanExecute)
-    {
-        $this->gearmanExecute = $gearmanExecute;
-
-        return $this;
-    }
 
     /**
      * Console Command configuration
@@ -176,7 +112,7 @@ class GearmanJobExecuteCommand extends AbstractGearmanCommand
 
         $job = $input->getArgument('job');
         $jobStructure = $this
-            ->gearmanClient
+            ->getContainer()->get('gearman')
             ->getJob($job);
 
         if (
@@ -185,7 +121,7 @@ class GearmanJobExecuteCommand extends AbstractGearmanCommand
         ) {
 
             $this
-                ->gearmanDescriber
+                ->getContainer()->get('gearman.describer')
                 ->describeJob(
                     $output,
                     $jobStructure
@@ -201,7 +137,7 @@ class GearmanJobExecuteCommand extends AbstractGearmanCommand
         }
 
         $this
-            ->gearmanExecute
+            ->getContainer()->get('gearman.execute')
             ->setOutput($output)
             ->executeJob($job, array(
                 'iterations'             => $input->getOption('iterations'),

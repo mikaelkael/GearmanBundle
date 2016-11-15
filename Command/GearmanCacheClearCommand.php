@@ -9,40 +9,20 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mkk\GearmanBundle\Service\GearmanCacheWrapper;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Clears all cache data
  */
-class GearmanCacheClearCommand extends AbstractGearmanCommand
+class GearmanCacheClearCommand extends ContainerAwareCommand
 {
-    /**
-     * @var GearmanCacheWrapper
-     *
-     * GearmanCacheWrapper
-     */
-    protected $gearmanCacheWrapper;
-
-    /**
-     * Set the GearmanCacheWrapper instance
-     *
-     * @param GearmanCacheWrapper $gearmanCacheWrapper GearmanCacheWrapper
-     *
-     * @return GearmanCacheClearCommand self Object
-     */
-    public function setGearmanCacheWrapper(GearmanCacheWrapper $gearmanCacheWrapper)
-    {
-        $this->gearmanCacheWrapper = $gearmanCacheWrapper;
-
-        return $this;
-    }
 
     /**
      * Console Command configuration
@@ -69,13 +49,13 @@ class GearmanCacheClearCommand extends AbstractGearmanCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (
-            !$input->getOption('quiet')
-        ) {
-            $output->writeln('Clearing the cache for the ' . $this->environment . ' environment');
+        if (!$input->getOption('quiet')) {
+            $environment = $this->getContainer()->getParameter('kernel.environment');
+            $output->writeln('Clearing the cache for the ' . $environment . ' environment');
         }
         $this
-            ->gearmanCacheWrapper
+            ->getContainer()
+            ->get('gearman.cache.wrapper')
             ->clear('');
     }
 }

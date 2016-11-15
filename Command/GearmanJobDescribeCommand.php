@@ -9,6 +9,7 @@
  * Feel free to edit as you please, and have fun.
  *
  * @author Marc Morera <yuhu@mmoreram.com>
+ * @author Mickael Perraud <mikaelkael.fr@gmail.com>
  */
 
 namespace Mkk\GearmanBundle\Command;
@@ -16,56 +17,13 @@ namespace Mkk\GearmanBundle\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Mkk\GearmanBundle\Command\Abstracts\AbstractGearmanCommand;
-use Mkk\GearmanBundle\Service\GearmanClient;
-use Mkk\GearmanBundle\Service\GearmanDescriber;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Gearman Job Describe Command class
  */
-class GearmanJobDescribeCommand extends AbstractGearmanCommand
+class GearmanJobDescribeCommand extends ContainerAwareCommand
 {
-    /**
-     * @var GearmanClient
-     *
-     * Gearman client
-     */
-    protected $gearmanClient;
-
-    /**
-     * @var GearmanDescriber
-     *
-     * GearmanDescriber
-     */
-    protected $gearmanDescriber;
-
-    /**
-     * Set gearman client
-     *
-     * @param GearmanClient $gearmanClient Gearman client
-     *
-     * @return GearmanJobDescribeCommand self Object
-     */
-    public function setGearmanClient(GearmanClient $gearmanClient)
-    {
-        $this->gearmanClient = $gearmanClient;
-
-        return $this;
-    }
-
-    /**
-     * set Gearman describer
-     *
-     * @param GearmanDescriber $gearmanDescriber GearmanDescriber
-     *
-     * @return GearmanJobDescribeCommand self Object
-     */
-    public function setGearmanDescriber(GearmanDescriber $gearmanDescriber)
-    {
-        $this->gearmanDescriber = $gearmanDescriber;
-
-        return $this;
-    }
 
     /**
      * Console Command configuration
@@ -95,10 +53,10 @@ class GearmanJobDescribeCommand extends AbstractGearmanCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $job = $input->getArgument('job');
-        $job = $this->gearmanClient->getJob($job);
+        $job = $this->getContainer()->get('gearman')->getJob($job);
 
         $this
-            ->gearmanDescriber
+            ->getContainer()->get('gearman.describer')
             ->describeJob($output, $job);
     }
 }
