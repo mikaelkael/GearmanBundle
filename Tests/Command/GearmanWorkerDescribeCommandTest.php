@@ -83,10 +83,11 @@ class GearmanWorkerDescribeCommandTest extends WebTestCase
         $this->assertContains('@Worker\className : Mkk\GearmanBundle\Tests\Service\Mocks\SingleCleanFile', $commandTester->getDisplay());
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     public function testRunWithoutArgumentWorker()
     {
-        $this->expectException(RuntimeException::class);
-
         $kernel = static::createKernel();
         $kernel->boot();
 

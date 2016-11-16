@@ -83,10 +83,11 @@ class GearmanJobDescribeCommandTest extends WebTestCase
         $this->assertContains('@job\callableName : realCallableNameTest', $commandTester->getDisplay());
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
     public function testRunWithoutArgumentJob()
     {
-        $this->expectException(RuntimeException::class);
-
         $kernel = static::createKernel();
         $kernel->boot();
 
