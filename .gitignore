@@ -6,3 +6,4 @@ phpcs.log
 vendor
 phpunit.xml
 coverage.clover
+ocular.phar
