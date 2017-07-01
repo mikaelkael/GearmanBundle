@@ -15,11 +15,12 @@ namespace Mkk\GearmanBundle\Tests\Module;
 
 use Mkk\GearmanBundle\Driver\Gearman\Job as JobAnnotation;
 use Mkk\GearmanBundle\Module\JobClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests JobClassTest class
  */
-class JobClassTest extends \PHPUnit_Framework_TestCase
+class JobClassTest extends TestCase
 {
     /**
      * @var JobAnnotation

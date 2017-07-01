@@ -16,11 +16,12 @@ namespace Mkk\GearmanBundle\Tests\Module;
 use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Mkk\GearmanBundle\Driver\Gearman\Work as WorkAnnotation;
 use Mkk\GearmanBundle\Module\WorkerClass;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests JobClassTest class
  */
-class WorkerClassTest extends \PHPUnit_Framework_TestCase
+class WorkerClassTest extends TestCase
 {
     /**
      * @var WorkAnnotation

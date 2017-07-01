@@ -14,11 +14,12 @@
 namespace Mkk\GearmanBundle\Tests\Module;
 
 use Mkk\GearmanBundle\Module\JobStatus;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests JobStatusTest class
  */
-class JobStatusTest extends \PHPUnit_Framework_TestCase
+class JobStatusTest extends TestCase
 {
     /**
      * Testing job status

@@ -41,6 +41,7 @@ class GearmanCacheWarmupCommandTest extends WebTestCase
             'command' => $command->getName(),
             '--quiet' => null
         ));
+        $this->assertEmpty($commandTester->getDisplay());
     }
 
     /**
@@ -59,5 +60,6 @@ class GearmanCacheWarmupCommandTest extends WebTestCase
         $commandTester->execute(array(
             'command' => $command->getName()
         ));
+        $this->assertContains('Warming the cache', $commandTester->getDisplay());
     }
 }
