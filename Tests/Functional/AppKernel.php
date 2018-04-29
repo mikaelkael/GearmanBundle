@@ -11,6 +11,11 @@
  * @author Marc Morera <yuhu@mmoreram.com>
  */
 
+namespace Mkk\GearmanBundle\Tests\Functional;
+
+use Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle;
+use Mkk\GearmanBundle\GearmanBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -25,9 +30,9 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return array(
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new Mkk\GearmanBundle\GearmanBundle(),
+            new FrameworkBundle(),
+            new DoctrineCacheBundle(),
+            new GearmanBundle(),
         );
     }
 
