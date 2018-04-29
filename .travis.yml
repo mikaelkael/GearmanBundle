@@ -3,31 +3,44 @@ dist: trusty
 
 language: php
 php:
-    - '5.5'
-    - '5.6'
-    - '7.0'
+    - 5.5
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
 
 matrix:
-    allow_failures:
-        - php: hhvm
+  include:
+    - php: 5.6
+      env: SYMFONY_VERSION='2.7.*'
+    - php: 5.6
+      env: SYMFONY_VERSION='2.8.*'
+    - php: 7.1
+      env: SYMFONY_VERSION='3.4.*'
+    - php: 7.1
+      env: SYMFONY_VERSION='4.0.*'
+    - php: 7.1
+      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.1.*@dev'
+    - php: 7.2
+      env: COVERAGE=yes
 
 install:
   - sh -c "sudo apt-get -y install uuid-dev libgearman-dev gearman gearman-job-server"
 before_script:
+  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini; fi;
   - if [[ $TRAVIS_PHP_VERSION = 5.* ]]; then curl -L -o gearman.tgz http://pecl.php.net/get/gearman/1.1.2; fi;
   - if [[ $TRAVIS_PHP_VERSION = 7.* ]]; then curl -L -o gearman.tgz https://github.com/wcgallego/pecl-gearman/archive/gearman-2.0.1.tar.gz; fi;
   - tar -xzf gearman.tgz
   - if [[ $TRAVIS_PHP_VERSION = 5.* ]]; then sh -c "cd gearman-1.1.2 && phpize && ./configure && make && sudo make install && cd .."; fi;
   - if [[ $TRAVIS_PHP_VERSION = 7.* ]]; then sh -c "cd pecl-gearman-gearman-2.0.1 && phpize && ./configure && make && sudo make install && cd .."; fi;
   - echo "extension=gearman.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  - composer install --prefer-source --no-interaction
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/framework-bundle:${SYMFONY_VERSION}"; fi;
+  - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
+  - composer install --dev
 
-script:
-  - php vendor/bin/phpunit --coverage-clover=coverage.clover
+script: if [[ $COVERAGE = yes ]]; then vendor/bin/phpunit --verbose --coverage-clover=coverage.clover; else vendor/bin/phpunit --verbose; fi
 
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+after_script: if [[ $COVERAGE = yes ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
 
 notifications:
     email: false
