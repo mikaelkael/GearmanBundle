@@ -9,5 +9,6 @@ services:
             - "@event_dispatcher"
 
     gearman.dispatcher.callbacks:
+        public: true
         parent: gearman.dispatcher.abstract
         class: "%gearman.dispatcher.callbacks.class%"

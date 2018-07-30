@@ -4,6 +4,7 @@ services:
     # Services
     #
     gearman.parser:
+        public: true
         class: "%gearman.parser.class%"
         arguments:
             - "@kernel"
@@ -14,6 +15,7 @@ services:
             - "%gearman.default.settings%"
 
     gearman.cache.wrapper:
+        public: true
         class: "%gearman.cache.wrapper.class%"
         arguments:
             - "@gearman.parser"
@@ -26,6 +28,7 @@ services:
             - { name: kernel.cache_warmer, priority: 0 }
 
     gearman.describer:
+        public: true
         class: "%gearman.describer.class%"
         arguments:
             - "@kernel"
@@ -37,6 +40,7 @@ services:
             - "%gearman.default.settings%"
 
     gearman.execute:
+        public: true
         class: "%gearman.execute.class%"
         parent: gearman.abstract.service
         calls:
@@ -44,6 +48,7 @@ services:
             - [setEventDispatcher, ["@event_dispatcher"]]
 
     gearman:
+        public: true
         class: "%gearman.client.class%"
         parent: gearman.abstract.service
         calls:
