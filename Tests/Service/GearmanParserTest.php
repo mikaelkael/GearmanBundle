@@ -216,9 +216,9 @@ class GearmanParserTest extends WebTestCase
     /**
      * Testing parseNamespaceMap with some paths
      *
-     * @dataProvider loadNamespaceMapDataProvider
+     * @dataProvider loadBundleNamespaceMapDataProvider
      */
-    public function testLoadNamespaceMap($active, $include, $ignore, $expectedPaths, $expectedExcludedPaths)
+    public function testLoadBundleNamespaceMap($active, $include, $ignore, $expectedPaths, $expectedExcludedPaths)
     {
         $this
             ->bundleMock
@@ -231,7 +231,7 @@ class GearmanParserTest extends WebTestCase
             "FirstBundleName" => $this->bundleMock,
         );
 
-        list($paths, $excludedPaths) = $this->gearmanParser->loadNamespaceMap($this->kernelBundles, array(
+        list($paths, $excludedPaths) = $this->gearmanParser->loadBundleNamespaceMap($this->kernelBundles, array(
             "FirstBundle" => array(
                 "name"      =>  "FirstBundleName",
                 "active"    =>  $active,
@@ -245,9 +245,28 @@ class GearmanParserTest extends WebTestCase
     }
 
     /**
+     * Testing loadResourceNamespaceMap
+     */
+    public function testLoadResourceNamespaceMap()
+    {
+        $rootDir = '/app/kernel/root/directory';
+        $data = array(
+            '/Worker/' => $rootDir . '/Worker/',
+            'Infrastructure/Gearman/Workers' => $rootDir . '/Infrastructure/Gearman/Workers/',
+        );
+        $this->gearmanParser = $this
+            ->getMockBuilder('\Mkk\GearmanBundle\Service\GearmanParser')
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+        $paths = $this->gearmanParser->loadResourceNamespaceMap($rootDir, array_keys($data));
+        $this->assertEquals($paths, array_values($data));
+    }
+
+    /**
      * Load namespace map Data Provider
      */
-    public function loadNamespaceMapDataProvider()
+    public function loadBundleNamespaceMapDataProvider()
     {
         return array(
 

@@ -53,6 +53,9 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('resources')
+                    ->scalarPrototype()->end()
+                ->end()
                 ->arrayNode('servers')
                     ->performNoDeepMerging()
                     ->defaultValue(array(

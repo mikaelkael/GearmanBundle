@@ -11,6 +11,7 @@ services:
             - "@annotation_reader"
             - "@gearman.external.symfony_finder"
             - "%gearman.bundles%"
+            - "%gearman.resources%"
             - "%gearman.servers%"
             - "%gearman.default.settings%"
 

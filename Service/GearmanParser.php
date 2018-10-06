@@ -60,6 +60,13 @@ class GearmanParser
     /**
      * @var array
      *
+     * Namespaces paths to be searched
+     */
+    private $resources;
+
+    /**
+     * @var array
+     *
      * Collection of servers to connect
      */
     private $servers;
@@ -72,12 +79,20 @@ class GearmanParser
     private $defaultSettings;
 
     /**
+     * Root kernel directory
+     *
+     * @var string
+     */
+    private $rootDir;
+
+    /**
      * Construct method
      *
      * @param KernelInterface $kernel          Kernel instance
      * @param Reader          $reader          Reader
      * @param Finder          $finder          Finder
      * @param array           $bundles         Bundle array where to parse workers, defined on condiguration
+     * @param array           $resources       Array of namespace paths to be searched for worker annotations
      * @param array           $servers         Server list defined on configuration
      * @param array           $defaultSettings Default settings defined on configuration
      */
@@ -86,6 +101,7 @@ class GearmanParser
         Reader $reader,
         Finder $finder,
         array $bundles,
+        array $resources,
         array $servers,
         array $defaultSettings
     )
@@ -94,8 +110,10 @@ class GearmanParser
         $this->reader = $reader;
         $this->finder = $finder;
         $this->bundles = $bundles;
+        $this->resources = $resources;
         $this->servers = $servers;
         $this->defaultSettings = $defaultSettings;
+        $this->rootDir = $kernel->getRootDir();
     }
 
     /**
@@ -105,7 +123,8 @@ class GearmanParser
      */
     public function load()
     {
-        list($paths, $excludedPaths) = $this->loadNamespaceMap($this->kernelBundles, $this->bundles);
+        list($paths, $excludedPaths) = $this->loadBundleNamespaceMap($this->kernelBundles, $this->bundles);
+        $paths = array_merge($paths, $this->loadResourceNamespaceMap($this->rootDir, $this->resources));
 
         return $this->parseNamespaceMap($this->finder, $this->reader, $paths, $excludedPaths);
     }
@@ -120,7 +139,7 @@ class GearmanParser
      *
      * @return array Return an array containing paths and ignore paths
      */
-    public function loadNamespaceMap(array $kernelBundles, array $bundles)
+    public function loadBundleNamespaceMap(array $kernelBundles, array $bundles)
     {
         $paths = array();
         $excludedPaths = array();
@@ -163,6 +182,19 @@ class GearmanParser
             $paths,
             $excludedPaths,
         );
+    }
+
+    /**
+     * Get resource paths
+     * @param string $rootDir
+     * @param array $resources
+     * @return array
+     */
+    public function loadResourceNamespaceMap($rootDir, array $resources)
+    {
+        return array_map(function($resource) use ($rootDir) {
+            return $rootDir . '/' . trim($resource, '/') . '/';
+        }, $resources);
     }
 
     /**
