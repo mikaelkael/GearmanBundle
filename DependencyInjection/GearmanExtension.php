@@ -76,6 +76,7 @@ class GearmanExtension extends Extension
          */
         $loader->load('classes.yml');
         $loader->load('services.yml');
+        $loader->load('commands.yml');
         $loader->load('eventDispatchers.yml');
         $loader->load('generators.yml');
         $loader->load('externals.yml');

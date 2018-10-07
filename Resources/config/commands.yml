@@ -1,0 +1,38 @@
+services:
+  #
+  # Commands
+  #
+  gearman.command.cache_clear:
+    class: "%gearman.command.cache_clear.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.cache_warmup:
+    class: "%gearman.command.cache_warmup.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.job_describe:
+    class: "%gearman.command.job_describe.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.job_execute:
+    class: "%gearman.command.job_execute.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.worker_describe:
+    class: "%gearman.command.worker_describe.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.worker_execute:
+    class: "%gearman.command.worker_execute.class%"
+    tags:
+      - { name: console.command }
+
+  gearman.command.worker_list:
+    class: "%gearman.command.worker_list.class%"
+    tags:
+      - { name: console.command }
